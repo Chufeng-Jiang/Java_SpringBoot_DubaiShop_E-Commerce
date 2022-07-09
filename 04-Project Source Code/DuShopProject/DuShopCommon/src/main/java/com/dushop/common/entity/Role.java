@@ -4,14 +4,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/*
+ * @BelongsProject: DuShopProject
+ * @BelongsPackage: com.dushop.common.entity
+ * @Author: Jiang Chufeng
+ * @CreateTime: 2022-07-10  00:50
+ * @Description: TODO
+ * @Version: 1.0
+ */
+
 @Entity
-@Table(name = "roles")
+@Table(name = "roles")  // The roles table's name in the dushopdb Database
 public class Role extends IdBasedEntity {
 
-    @Column(length = 40, nullable = false, unique = true)
+    @Column(length = 40, nullable = false, unique = true)  // The table role - 2nd Attribute: name
     private String name;
 
-    @Column(length = 150, nullable = false)
+    @Column(length = 150, nullable = false) // The table role - 3rd Attribute: description
     private String description;
 
     public Role() {
@@ -56,18 +65,23 @@ public class Role extends IdBasedEntity {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Role other = (Role) obj;
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         return true;
     }
 
