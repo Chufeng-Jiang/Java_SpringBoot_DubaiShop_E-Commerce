@@ -27,9 +27,38 @@ public class UserService {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private RoleRepository roleRepo;
+
 
     public List<User> listAll() {
         return (List<User>) userRepo.findAll();
+    }
+
+    public List<Role> listRoles() {
+        return (List<Role>) roleRepo.findAll();
+    }
+
+    public void save(User user) {
+/*        boolean isUpdatingUser = (user.getId() != null);
+
+        if (isUpdatingUser) {
+            User existingUser = userRepo.findById(user.getId()).get();
+
+
+            if (user.getPassword().isEmpty()) {
+                user.setPassword(existingUser.getPassword());
+            } else {
+                encodePassword(user);
+            }
+
+        } else {
+            encodePassword(user);
+        }
+
+
+        return userRepo.save(user);*/
+        userRepo.save(user);
     }
 
 }

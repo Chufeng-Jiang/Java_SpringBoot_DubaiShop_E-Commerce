@@ -67,8 +67,15 @@
         </div>
         <div>
             <h2>Manage Users</h2>
+                <a th:href="@{/users/new}">Create New User</a>
         </div>
-        <table class="table table-responsive-xl">
+
+        <div th:if="${message != null}" class="alert alert-success text-center">
+                [[${message}]]
+        </div>
+
+        <div>
+        <table class="table table-bordered table-striped table-hover table-responsive-xl ">
                 <thead class="thead-dark">
                 <tr>
                         <th>User ID </th>
@@ -96,8 +103,9 @@
                         </tr>
                 </tbody>
         </table>
+        </div>
 
-        <div>
+        <div class="text-center">
                 <p>DuShop Control Panel - Copy Right &copy; DuShop</p>
         </div>
 </div>
