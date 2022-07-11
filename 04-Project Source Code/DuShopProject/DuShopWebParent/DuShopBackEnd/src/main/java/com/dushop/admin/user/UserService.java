@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.dushop.admin.paging.PagingAndSortingHelper;
 import com.dushop.common.entity.Role;
 import com.dushop.common.entity.User;
+import org.springframework.ui.Model;
 
 /*
  *@BelongsProject: DuShopProject
@@ -23,7 +24,6 @@ import com.dushop.common.entity.User;
 @Transactional
 public class UserService {
     public static final int USERS_PER_PAGE = 4;
-
     @Autowired
     private UserRepository userRepo;
 
