@@ -71,6 +71,25 @@ public class UserService {
         user.setPassword(encodedPassword);
     }
 
+    public boolean isEmailUnique(String email) {
+        User userByEmail = userRepo.getUserByEmail(email);
+
+/*        if (userByEmail == null) return true;
+
+        boolean isCreatingNew = (id == null);
+
+        if (isCreatingNew) {
+            if (userByEmail != null) return false;
+        } else {
+            if (userByEmail.getId() != id) {
+                return false;
+            }
+        }
+
+        return true;*/
+        return userByEmail == null;
+    }
+
 
 }
 
