@@ -135,4 +135,17 @@ public class UserRepositoryTests {
 
     }
 
+    @Test
+    public void testListFirstPage() {
+        int pageNumber = 1;
+        int pageSize = 3;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<User> page = repo.findAll(pageable);
+        List<User> listUsers = page.getContent();
+        listUsers.forEach(user -> System.out.println(user));
+        assertThat(listUsers.size()).isEqualTo(pageSize);
+    }
+
+
 }

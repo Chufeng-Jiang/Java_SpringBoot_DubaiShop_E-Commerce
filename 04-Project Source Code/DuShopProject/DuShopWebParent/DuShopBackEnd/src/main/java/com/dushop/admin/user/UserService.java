@@ -9,6 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.dushop.admin.paging.PagingAndSortingHelper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import com.dushop.common.entity.Role;
 import com.dushop.common.entity.User;
 import org.springframework.ui.Model;
@@ -40,6 +43,13 @@ public class UserService {
         return (List<User>) userRepo.findAll();
     }
 
+    public Page<User> listByPage(int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE);
+        return userRepo.findAll(pageable);
+    }
+
+
+
     public List<Role> listRoles() {
         return (List<Role>) roleRepo.findAll();
     }
@@ -61,7 +71,6 @@ public class UserService {
         }
 
         encodePassword(user);
-
         return userRepo.save(user);
     }
 
