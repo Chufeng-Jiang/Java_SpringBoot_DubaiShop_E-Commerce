@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-
-
+import com.dushop.admin.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,16 +53,8 @@ public class UserController {
     }
 
     @PostMapping("/users/save")
-    public String saveUser(User user, RedirectAttributes redirectAttributes) {
-        System.out.println(user);
-        service.save(user);
+    public String saveUser(User user, RedirectAttributes redirectAttributes, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
-
-        return "redirect:/users";
-    }
-
-/*
         if (!multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             user.setPhotos(fileName);
@@ -71,13 +62,18 @@ public class UserController {
 
             String uploadDir = "user-photos/" + savedUser.getId();
 
-            AmazonS3Util.removeFolder(uploadDir);
-            AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
+            FileUploadUtil.cleanDir(uploadDir);
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
         } else {
             if (user.getPhotos().isEmpty()) user.setPhotos(null);
             service.save(user);
         }
-*/
+
+        redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
+
+        return "redirect:/users";
+    }
 
 
     @GetMapping("/users/edit/{id}")
