@@ -43,8 +43,23 @@ public class UserService {
         return (List<User>) userRepo.findAll();
     }
 
-    public Page<User> listByPage(int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE);
+    /*
+     * @description:
+     * @author: Jiang Chufeng
+     * @date: 2022/7/13 18:33
+     * @param: pageNum
+     * @param: sortField Admin-Manage User-sorting
+     * @param: sortDir
+     * @return: org.springframework.data.domain.Page<com.dushop.common.entity.User>
+     */
+
+    public Page<User> listByPage(int pageNum, String sortField, String sortDir) {
+        Sort sort = Sort.by(sortField);
+
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE, sort);
+
         return userRepo.findAll(pageable);
     }
 
