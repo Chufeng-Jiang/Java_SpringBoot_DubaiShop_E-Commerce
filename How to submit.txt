@@ -1,4 +1,9 @@
-1. 安装完git后，在C:\Users\Administrator文件夹下找到.gitconfig文件，记事本打开添加以下：
+0. 初始化仓库，在项目文件夹下鼠标右击选择Git Bash Here，输入：
+
+git init
+
+1. 有的本地主分支是master, gitlab上是main。如果是master的话，需要进行修改，Git 默认分支由 master 变为 main参考：
+安装完git后，在C:\Users\Administrator文件夹下找到.gitconfig文件，记事本打开直接添加以下：
 
 [init]
 	defaultBranch = main
@@ -7,6 +12,7 @@
 2. 在项目文件夹下鼠标右击选择Git Bash Here
 
 3. 创建本地项目的名字和邮箱，在Git Bash命令行里输入
+
 git config user.name "gitlab账号--邮箱前缀"
 git config user.email "cxxxxxx@cs.bham.ac.uk"
 
@@ -26,6 +32,9 @@ git push origin main
 
 结束
 
+
+
+///////
 中间错误最后出现 ! [rejected]        main -> main (non-fast-forward)
 error: failed to push some refs to 'https://git-teaching.cs.bham.ac.uk/mod-msc-proj-2021/cxj
 164.git'的处理方法
