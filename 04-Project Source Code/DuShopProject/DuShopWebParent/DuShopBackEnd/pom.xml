@@ -35,6 +35,11 @@
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.dushop</groupId>
             <artifactId>DuShopCommon</artifactId>
             <version>0.0.1-SNAPSHOT</version>
