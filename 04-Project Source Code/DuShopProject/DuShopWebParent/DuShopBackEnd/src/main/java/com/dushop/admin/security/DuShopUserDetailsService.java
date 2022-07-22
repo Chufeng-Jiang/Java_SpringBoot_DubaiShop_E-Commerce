@@ -17,6 +17,24 @@ import com.dushop.common.entity.User;
  *@Version: 1.0
  */
 
+/*public class DuShopUserDetailsService implements UserDetailsService {
+
+    @Autowired
+    private UserRepository userRepo;
+
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepo.getUserByEmail(email);
+        if (user != null) {
+            return new DuShopUserDetails(user);
+        }
+
+        throw new UsernameNotFoundException("Could not find user with email: " + email);
+    }
+
+}*/
+
 public class DuShopUserDetailsService implements UserDetailsService {
 
     @Autowired
