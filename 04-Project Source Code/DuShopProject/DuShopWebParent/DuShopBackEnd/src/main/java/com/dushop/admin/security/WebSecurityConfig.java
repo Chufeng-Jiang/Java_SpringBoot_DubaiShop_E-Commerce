@@ -32,6 +32,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure (HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().anyRequest().permitAll();
+        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .permitAll();
     }
+
+   /* In Spring Security 5.4 we also introduced the WebSecurityCustomizer.
+    The WebSecurityCustomizer is a callback interface that can be used to customize WebSecurity.
+    Below is an example configuration using the WebSecurityConfigurerAdapter that ignores requests
+    that match /ignore1 or /ignore2:
+    https://www.baeldung.com/spring-security-expressions
+    */
+   @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**"); // Resolve the static resources problem
+    }
+
+
 }
