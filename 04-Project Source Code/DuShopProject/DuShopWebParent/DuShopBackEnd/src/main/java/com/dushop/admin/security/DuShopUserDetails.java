@@ -106,7 +106,7 @@ public class DuShopUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getEmail(); //There is get email
     }
 
     @Override
@@ -127,6 +127,10 @@ public class DuShopUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.isEnabled();
+    }
+
+    public String getFullname() {
+        return this.user.getFirstName() + " " + this.user.getLastName(); //get userName is get email
     }
 
 }

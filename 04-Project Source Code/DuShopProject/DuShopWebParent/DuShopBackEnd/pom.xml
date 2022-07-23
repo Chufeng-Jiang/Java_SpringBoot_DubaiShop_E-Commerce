@@ -62,6 +62,10 @@
             <version>2.3.0-b170127.1453</version>
         </dependency>
         <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.dushop</groupId>
             <artifactId>DuShopCommon</artifactId>
             <version>0.0.1-SNAPSHOT</version>
