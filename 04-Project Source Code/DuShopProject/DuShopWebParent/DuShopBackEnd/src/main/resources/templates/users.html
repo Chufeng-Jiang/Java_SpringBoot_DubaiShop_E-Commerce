@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<!--<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
     <link rel="shortcut icon" href="#"/>
@@ -8,21 +8,26 @@
     <title>Home - DuShop Admin</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <!--    <link ref="stylesheet"  type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />-->
+    &lt;!&ndash;    <link ref="stylesheet"  type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />&ndash;&gt;
     <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-</head>
+</head>-->
+
+<!--Using thymeleaf resuable method in fragments.html-->
+<head th:replace="fragments :: page_head('Users - DuShop Admin')" />
+
 <body>
 <div class="container-fluid">
-    <div>
+    <div th:replace="navigation :: menu"></div>
+    <!--<div>
         <nav class="navbar navbar-expand-lg  bg-dark  navbar-dark">
             <a class="navbar-brand" th:href="@{/}">
                 <img th:src="@{/images/DuShopAdminSmall.png}"/>
             </a>
-            <!--Navbar togglers are left-aligned by default, but should they follow a sibling element like a .navbar-brand,
-            they’ll automatically be aligned to the far right. Reversing your markup will reverse the placement of the toggler.-->
+            &lt;!&ndash;Navbar togglers are left-aligned by default, but should they follow a sibling element like a .navbar-brand,
+            they’ll automatically be aligned to the far right. Reversing your markup will reverse the placement of the toggler.&ndash;&gt;
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -67,7 +72,7 @@
             </div>
 
         </nav>
-    </div>
+    </div>-->
     <div>
         <h2>Manage Users</h2>
         <!--        <a th:href="@{/users/new}">Create New User</a>&nbsp;|&nbsp;
@@ -237,9 +242,10 @@
         </div>
     </div>
 
-    <div class="text-center">
+    <!--<div class="text-center">
         <p>DuShop Control Panel - Copy Right &copy; DuShop</p>
-    </div>
+    </div>-->
+    <div th:replace="fragments :: footer"></div>
 </div>
 
 <script type="text/javascript">
