@@ -1,7 +1,8 @@
-package com.dushop.admin.user;
+package com.dushop.admin.user.controller;
 
 import java.io.IOException;
 
+import com.dushop.admin.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,7 +39,7 @@ public class AccountController {
         User user = service.getByEmail(email);
         model.addAttribute("user", user);
 
-        return "account_form";
+        return "users/account_form";
 
     }
 

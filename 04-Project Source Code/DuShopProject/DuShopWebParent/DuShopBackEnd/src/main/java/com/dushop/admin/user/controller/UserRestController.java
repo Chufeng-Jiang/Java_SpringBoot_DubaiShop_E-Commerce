@@ -1,10 +1,10 @@
-package com.dushop.admin.user;
+package com.dushop.admin.user.controller;
 
+import com.dushop.admin.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-//import com.dushop.admin.user.UserService;
 
 /*
  *@BelongsProject: DuShopProject

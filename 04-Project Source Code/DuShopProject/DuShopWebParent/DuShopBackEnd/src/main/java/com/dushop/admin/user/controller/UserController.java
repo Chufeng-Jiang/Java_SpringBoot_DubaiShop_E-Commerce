@@ -1,10 +1,12 @@
-package com.dushop.admin.user;
+package com.dushop.admin.user.controller;
 
 import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import com.dushop.admin.FileUploadUtil;
+import com.dushop.admin.user.UserNotFoundException;
+import com.dushop.admin.user.UserService;
 import com.dushop.admin.user.export.UserCsvExporter;
 import com.dushop.admin.user.export.UserExcelExporter;
 import com.dushop.admin.user.export.UserPdfExporter;
@@ -83,7 +85,7 @@ public class UserController {
         model.addAttribute("reverseSortDir", reverseSortDir);
         model.addAttribute("keyword", keyword);
 
-        return "users";
+        return "users/users";
     }
 
     @GetMapping("/users/new")
@@ -97,7 +99,7 @@ public class UserController {
         model.addAttribute("listRoles", listRoles);
         model.addAttribute("pageTitle", "Create New User");
 
-        return "user_form";
+        return "users/user_form";
     }
 
     @PostMapping("/users/save")
@@ -149,8 +151,8 @@ public class UserController {
             model.addAttribute("user", user);
             model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
             model.addAttribute("listRoles", listRoles);
+            return "users/user_form";
 
-            return "user_form";
         } catch (UserNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
             return "redirect:/users";
