@@ -23,12 +23,62 @@ public class CategoryService {
     @Autowired
     private CategoryRepository repo;
 
+    /*
+     * @description: List the categories in hierachical way   Parent/--Subcategory/----Subcategory
+     * @author: Jiang Chufeng
+     * @date: 2022/7/24 17:10
+     * @param:
+     * @return: java.util.List<com.dushop.common.entity.Category>
+     */
     public List<Category> listAll() {
-        return (List<Category>) repo.findAll();
+        List<Category> rootCategories = repo.findRootCategories();
+        return listHierarchicalCategories(rootCategories);
+    }
+
+    private List<Category> listHierarchicalCategories(List<Category> rootCategories) {
+        List<Category> hierarchicalCategories = new ArrayList<>();
+
+        for (Category rootCategory : rootCategories) {
+            hierarchicalCategories.add(Category.copyFull(rootCategory));
+
+            Set<Category> children = rootCategory.getChildren();
+
+            for (Category subCategory : children) {
+                String name = "--" + subCategory.getName();
+                hierarchicalCategories.add(Category.copyFull(subCategory, name));
+
+                listSubHierarchicalCategories(hierarchicalCategories, subCategory, 1);
+            }
+        }
+
+        return hierarchicalCategories;
+    }
+
+    private void listSubHierarchicalCategories(List<Category> hierarchicalCategories,
+                                               Category parent, int subLevel) {
+        Set<Category> children = parent.getChildren();
+        int newSubLevel = subLevel + 1;
+
+        for (Category subCategory : children) {
+            String name = "";
+            for (int i = 0; i < newSubLevel; i++) {
+                name += "--";
+            }
+            name += subCategory.getName();
+
+            hierarchicalCategories.add(Category.copyFull(subCategory, name));
+
+            listSubHierarchicalCategories(hierarchicalCategories, subCategory, newSubLevel);
+        }
+
+    }
+
+    public Category save(Category category) {
+        return repo.save(category);
     }
 
     /*
-     * @description: Resuse from test
+     * @description: Resuse from test / List wiithout hierachical
      * @author: Jiang Chufeng
      * @date: 2022/7/24 15:01
      * @param:
@@ -43,13 +93,13 @@ public class CategoryService {
             if (category.getParent() == null) {
                 categoriesUsedInForm.add(Category.copyIdAndName(category));
 
-                Set<Category> children = category.getChildren(); //children-Hashset
+                Set<Category> children = category.getChildren();
 
                 for (Category subCategory : children) {
                     String name = "--" + subCategory.getName();
-                    categoriesUsedInForm.add(Category.copyIdAndName(category));
+                    categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
 
-                    listChildren(categoriesUsedInForm, subCategory, 1);
+                    listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, 1);
                 }
             }
         }
@@ -57,7 +107,8 @@ public class CategoryService {
         return categoriesUsedInForm;
     }
 
-    private void listChildren(List<Category> categoriesUsedInForm, Category parent, int subLevel) {
+    private void listSubCategoriesUsedInForm(List<Category> categoriesUsedInForm,
+                                             Category parent, int subLevel) {
         int newSubLevel = subLevel + 1;
         Set<Category> children = parent.getChildren();
 
@@ -70,10 +121,7 @@ public class CategoryService {
 
             categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
 
-            listChildren(categoriesUsedInForm, subCategory, newSubLevel);
+            listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, newSubLevel);
         }
-    }
-    public Category save(Category category) {
-        return repo.save(category);
     }
 }

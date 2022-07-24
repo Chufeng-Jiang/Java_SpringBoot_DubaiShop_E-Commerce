@@ -2,6 +2,7 @@ package com.dushop.admin.user.category;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Set;
 
 import com.dushop.common.entity.Category;
@@ -26,7 +27,7 @@ import org.springframework.test.annotation.Rollback;
 
 import com.dushop.common.entity.Category;
 
-@DataJpaTest(showSql = false)
+@DataJpaTest(showSql = true)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 public class CategoryRepositoryTests {
@@ -97,4 +98,12 @@ public class CategoryRepositoryTests {
             printChildren(subCategory, newSubLevel);
         }
     }
+
+    @Test
+    public void testListRootCategories() {
+        List<Category> rootCategories = repo.findRootCategories();
+        rootCategories.forEach(cat -> System.out.println(cat.getName()));
+    }
+
+
 }

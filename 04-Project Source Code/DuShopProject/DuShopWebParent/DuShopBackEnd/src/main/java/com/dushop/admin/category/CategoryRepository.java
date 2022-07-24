@@ -1,8 +1,11 @@
 package com.dushop.admin.category;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.dushop.common.entity.Category;
+
+import java.util.List;
 
 /*
  *@BelongsProject: DuShopProject
@@ -14,5 +17,7 @@ import com.dushop.common.entity.Category;
  */
 
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
+    @Query("SELECT c FROM Category c WHERE c.parent.id is NULL")
+    public List<Category> findRootCategories();
 
 }
