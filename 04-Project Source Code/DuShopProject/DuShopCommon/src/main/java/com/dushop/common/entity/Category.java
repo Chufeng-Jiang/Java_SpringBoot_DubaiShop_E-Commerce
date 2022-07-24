@@ -55,6 +55,23 @@ public class Category {
         this.id = id;
     }
 
+    public static Category copyIdAndName(Category category) {
+        //set the category to the subcategory set -->CategoryService--listCategoriesUsedInForm
+        Category copyCategory = new Category();
+        copyCategory.setId(category.getId());
+        copyCategory.setName(category.getName());
+
+        return copyCategory;
+    }
+
+    public static Category copyIdAndName(Integer id, String name) {
+        Category copyCategory = new Category();
+        copyCategory.setId(id);
+        copyCategory.setName(name);
+
+        return copyCategory;
+    }
+
     public Category(String name) {
         this.name = name;
         this.alias = name;

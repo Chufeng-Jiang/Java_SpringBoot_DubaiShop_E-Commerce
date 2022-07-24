@@ -1,40 +1,26 @@
-package com.dushop.admin.category;
+Entity Class：
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+public static Category copyIdAndName(Category category) {
+        //set the category to the subcategory set -->CategoryService--listCategoriesUsedInForm
+        Category copyCategory = new Category();
+        copyCategory.setId(category.getId());
+        copyCategory.setName(category.getName());
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.dushop.common.entity.Category;
-
-/*
- *@BelongsProject: DuShopProject
- *@BelongsPackage: com.dushop.admin.category
- *@Author: Jiang Chufeng
- *@CreateTime: 2022-07-24  13:35
- *@Description: TODO
- *@Version: 1.0
- */
-
-@Service
-public class CategoryService {
-    @Autowired
-    private CategoryRepository repo;
-
-    public List<Category> listAll() {
-        return (List<Category>) repo.findAll();
+        return copyCategory;
     }
 
-    /*
-     * @description: Resuse from test
-     * @author: Jiang Chufeng
-     * @date: 2022/7/24 15:01
-     * @param:
-     * @return: java.util.List<com.dushop.common.entity.Category>
-     */
-    public List<Category> listCategoriesUsedInForm() {
+    public static Category copyIdAndName(Integer id, String name) {
+        Category copyCategory = new Category();
+        copyCategory.setId(id);
+        copyCategory.setName(name);
+
+        return copyCategory;
+    }
+
+
+Category Service：
+
+public List<Category> listCategoriesUsedInForm() {
         List<Category> categoriesUsedInForm = new ArrayList<>();
 
         Iterable<Category> categoriesInDB = repo.findAll();
@@ -73,7 +59,3 @@ public class CategoryService {
             listChildren(categoriesUsedInForm, subCategory, newSubLevel);
         }
     }
-    public Category save(Category category) {
-        return repo.save(category);
-    }
-}
