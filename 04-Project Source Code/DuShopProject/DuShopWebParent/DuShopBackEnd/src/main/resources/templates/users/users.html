@@ -130,7 +130,7 @@
     <!-- https://getbootstrap.com/docs/4.0/components/pagination/-->
     <div th:if="${totalPages > 1}">
         <nav>
-           <!-- https://www.geeksforgeeks.org/css-flex-wrap-property/-->
+            <!-- https://www.geeksforgeeks.org/css-flex-wrap-property/-->
             <ul class="pagination justify-content-center"  flex-wrap>
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
                     <a th:replace="fragments :: page_link(1, 'First')"></a>

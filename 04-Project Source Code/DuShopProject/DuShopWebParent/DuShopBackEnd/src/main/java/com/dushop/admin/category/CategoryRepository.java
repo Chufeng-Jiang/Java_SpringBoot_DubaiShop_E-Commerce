@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 
 import com.dushop.common.entity.Category;
 
@@ -25,5 +26,9 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
     public Category findByName(String name);
 
     public Category findByAlias(String alias);
+
+    @Query("UPDATE Category c SET c.enabled = ?2 WHERE c.id = ?1")
+    @Modifying
+    public void updateEnabledStatus(Integer id, boolean enabled);
 
 }
