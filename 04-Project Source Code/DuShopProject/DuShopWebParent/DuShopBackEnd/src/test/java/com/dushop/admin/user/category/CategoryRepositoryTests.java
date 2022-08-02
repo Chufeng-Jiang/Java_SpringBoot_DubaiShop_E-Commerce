@@ -8,6 +8,7 @@ import java.util.Set;
 import com.dushop.common.entity.Category;
 import com.dushop.admin.category.CategoryRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
@@ -101,7 +102,7 @@ public class CategoryRepositoryTests {
 
     @Test
     public void testListRootCategories() {
-        List<Category> rootCategories = repo.findRootCategories();
+        List<Category> rootCategories = repo.findRootCategories(Sort.by("name").ascending());
         rootCategories.forEach(cat -> System.out.println(cat.getName()));
     }
 
@@ -123,6 +124,5 @@ public class CategoryRepositoryTests {
         assertThat(category).isNotNull();
         assertThat(category.getAlias()).isEqualTo(alias);
     }
-
 
 }
