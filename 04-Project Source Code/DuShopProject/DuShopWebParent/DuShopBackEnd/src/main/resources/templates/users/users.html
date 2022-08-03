@@ -10,7 +10,7 @@
 
     <div>
         <h2>Manage Users</h2>
-        <!--        <a th:href="@{/users/new}">Create New User</a>&nbsp;|&nbsp;
+        <!--   <a th:href="@{/users/new}">Create New User</a>&nbsp;|&nbsp;
                 <a th:href="@{/users/export/csv}">Export to CSV</a>&nbsp;|&nbsp;
                 <a th:href="@{/users/export/excel}">Export to Excel</a>&nbsp;|&nbsp;
                 <a th:href="@{/users/export/pdf}">Export to PDF</a>-->
@@ -119,44 +119,10 @@
     </div>
 
 
-    <!--Showing users 1 to 4 of 14-->
-    <div class="text-center m-1" th:if="${totalItems > 0}">
-        <span>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
-    </div>
-    <div class="text-center m-1" th:unless="${totalItems > 0}">
-        <span>No users found</span>
-    </div>
-
-    <!-- https://getbootstrap.com/docs/4.0/components/pagination/-->
-    <div th:if="${totalPages > 1}">
-        <nav>
-            <!-- https://www.geeksforgeeks.org/css-flex-wrap-property/-->
-            <ul class="pagination justify-content-center"  flex-wrap>
-                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(1, 'First')"></a>
-                </li>
-                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
-                </li>
-
-                <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"
-                    th:each="i : ${#numbers.sequence(1, totalPages)}">
-                    <a th:replace="fragments :: page_link(${i}, ${i})"></a>
-                </li>
 
 
-                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
-                </li>
+    <div th:replace="fragments :: pagination('/users', 'users')"></div>
 
-                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${totalPages}, 'Last')"></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-    <!--Pop-up window - bootstrap and jquery: Confirmation dialog-->
     <div th:replace="modal_fragments :: confirm_modal" />
 
     <div th:replace="fragments :: footer"></div>
