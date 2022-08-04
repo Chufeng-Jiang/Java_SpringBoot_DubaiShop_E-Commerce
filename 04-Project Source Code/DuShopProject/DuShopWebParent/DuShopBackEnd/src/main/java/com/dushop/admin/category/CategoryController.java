@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.dushop.admin.FileUploadUtil;
 import com.dushop.admin.user.UserService;
-
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -151,6 +151,13 @@ public class CategoryController {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
         }
         return "redirect:/categories";
+    }
+
+    @GetMapping("/categories/export/csv")
+    public void exportToCSV(HttpServletResponse response) throws IOException {
+        List<Category> listCategories = service.listCategoriesUsedInForm();
+        CategoryCsvExporter exporter = new CategoryCsvExporter();
+        exporter.export(listCategories, response);
     }
 
 }

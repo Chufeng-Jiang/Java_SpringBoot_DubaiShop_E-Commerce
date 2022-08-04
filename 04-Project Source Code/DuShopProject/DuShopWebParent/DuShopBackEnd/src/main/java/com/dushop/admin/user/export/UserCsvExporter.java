@@ -1,8 +1,10 @@
 package com.dushop.admin.user.export;
 
+import com.dushop.admin.AbstractExporter;
 import java.io.IOException;
 import java.util.List;
 
+import com.dushop.admin.AbstractExporter;
 import com.dushop.common.entity.User;
 import javax.servlet.http.HttpServletResponse;
 import org.supercsv.io.CsvBeanWriter;
@@ -26,7 +28,7 @@ public class UserCsvExporter extends AbstractExporter {
     */
 
     public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
-        super.setResponseHeader(response, "text/csv", ".csv");
+        super.setResponseHeader(response, "text/csv", ".csv", "users_");
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
                 CsvPreference.STANDARD_PREFERENCE);

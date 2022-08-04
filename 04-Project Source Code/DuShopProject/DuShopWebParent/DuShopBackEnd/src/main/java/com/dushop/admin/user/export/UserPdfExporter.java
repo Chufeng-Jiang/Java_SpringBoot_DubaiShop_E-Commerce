@@ -1,10 +1,13 @@
 package com.dushop.admin.user.export;
+
+import com.dushop.admin.AbstractExporter;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.dushop.admin.AbstractExporter;
 import com.lowagie.text.Document;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
@@ -28,7 +31,7 @@ import com.dushop.common.entity.User;
 public class UserPdfExporter extends AbstractExporter {
 
     public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
-        super.setResponseHeader(response, "application/pdf", ".pdf");
+        super.setResponseHeader(response, "application/pdf", ".pdf", "users_");
 
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, response.getOutputStream());
