@@ -1,4 +1,4 @@
-package com.dushop.admin.user.category;
+package com.dushop.admin.category;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.dushop.admin.category.*;
