@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.dushop.common.entity.Category;
-import com.dushop.admin.category.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;

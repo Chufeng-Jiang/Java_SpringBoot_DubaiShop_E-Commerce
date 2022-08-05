@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").hasAuthority("Admin") //prevent unauthorize roles visit pages by url input
                 .antMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
                 .antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
+                .antMatchers("/products/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
