@@ -69,7 +69,9 @@
 
 </div>
 <script type="text/javascript">
+    MAX_FILE_SIZE = 102400; // 100KB
     moduleURL = "[[@{/brands}]]";
+
     $(document).ready(function() {
         dropdownCategories = $("#categories");
         divChosenCategories = $("#chosenCategories");
@@ -78,6 +80,7 @@
             divChosenCategories.empty();
             showChosenCategories();
         });
+
         showChosenCategories();
     });
 
@@ -89,7 +92,6 @@
 
             divChosenCategories.append("<span class='badge badge-secondary m-1'>" + catName + "</span>");
         });
-
     }
 
     function checkUnique(form) {

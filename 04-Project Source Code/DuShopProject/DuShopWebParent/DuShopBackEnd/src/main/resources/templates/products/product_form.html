@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
     <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
     <script th:src="@{/richtext/jquery.richtext.min.js}"></script>
 </head>
-
 <body>
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
@@ -15,6 +13,7 @@
     </div>
 
     <form th:action="@{/products/save}" method="post" onsubmit="return checkUnique(this)"
+          enctype="multipart/form-data"
           th:object="${product}">
         <input type="hidden" th:field="*{id}" />
         <div>
@@ -31,11 +30,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#details" role="tab">Details</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#shipping" role="tab">Shipping</a>
                 </li>
-
             </ul>
 
             <div class="tab-content">
@@ -45,7 +42,9 @@
                 <div class="tab-pane" id="description" role="tabpanel">
                     <div th:replace="products/product_description :: content"></div>
                 </div>
-                <div class="tab-pane" id="images" role="tabpanel">Images</div>
+                <div class="tab-pane" id="images" role="tabpanel">
+                    <div th:replace="products/product_images :: content"></div>
+                </div>
                 <div class="tab-pane" id="details" role="tabpanel">Details</div>
                 <div class="tab-pane p-3" id="shipping" role="tabpanel">
                     <div th:replace="products/product_shipping :: content"></div>
@@ -64,6 +63,8 @@
 
 </div>
 <script type="text/javascript">
+    MAX_FILE_SIZE = 502400; // 500KB
+
     moduleURL = "[[@{/products}]]";
     brandModuleURL = "[[@{/brands}]]";
 
@@ -71,8 +72,10 @@
     dropdownCategories = $("#category");
 
     $(document).ready(function() {
+
         $("#shortDescription").richText();
         $("#fullDescription").richText();
+
         dropdownBrands.change(function() {
             dropdownCategories.empty();
             getCategories();
@@ -118,7 +121,6 @@
 
         return false;
     }
-
 </script>
 <script th:src="@{/js/common_form.js}"></script>
 </body>
