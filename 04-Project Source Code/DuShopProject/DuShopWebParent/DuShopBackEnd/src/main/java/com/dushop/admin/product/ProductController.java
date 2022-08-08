@@ -13,10 +13,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.dushop.admin.brand.BrandService;
 import com.dushop.common.entity.Brand;
 import com.dushop.common.entity.Product;
+import com.dushop.common.entity.ProductImage;
 import com.dushop.admin.FileUploadUtil;
 
 /*
@@ -30,6 +39,8 @@ import com.dushop.admin.FileUploadUtil;
 
 @Controller
 public class ProductController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
     @Autowired private ProductService productService;
     @Autowired private BrandService brandService;
 
@@ -53,6 +64,7 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("listBrands", listBrands);
         model.addAttribute("pageTitle", "Create New Product");
+        model.addAttribute("numberOfExistingExtraImages", 0);
 
         return "products/product_form";
     }
@@ -60,17 +72,86 @@ public class ProductController {
     @PostMapping("/products/save")
     public String saveProduct(Product product, RedirectAttributes ra,
                               @RequestParam("fileImage") MultipartFile mainImageMultipart,
-                              @RequestParam("extraImage") MultipartFile[] extraImageMultiparts)  throws IOException {
+                              @RequestParam("extraImage") MultipartFile[] extraImageMultiparts,
+                              @RequestParam(name = "detailIDs", required = false) String[] detailIDs,
+                              @RequestParam(name = "detailNames", required = false) String[] detailNames,
+                              @RequestParam(name = "detailValues", required = false) String[] detailValues,
+                              @RequestParam(name = "imageIDs", required = false) String[] imageIDs,
+                              @RequestParam(name = "imageNames", required = false) String[] imageNames
+    )
+            throws IOException {
         setMainImageName(mainImageMultipart, product);
-        setExtraImageNames(extraImageMultiparts, product);
+        setExistingExtraImageNames(imageIDs, imageNames, product);
+        setNewExtraImageNames(extraImageMultiparts, product);
+        setProductDetails(detailIDs, detailNames, detailValues, product);
 
         Product savedProduct = productService.save(product);
 
         saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
 
+        deleteExtraImagesWeredRemovedOnForm(product);
+
         ra.addFlashAttribute("message", "The product has been saved successfully.");
 
         return "redirect:/products";
+    }
+
+    private void deleteExtraImagesWeredRemovedOnForm(Product product) {
+        String extraImageDir = "../product-images/" + product.getId() + "/extras";
+        Path dirPath = Paths.get(extraImageDir);
+
+        try {
+            Files.list(dirPath).forEach(file -> {
+                String filename = file.toFile().getName();
+
+                if (!product.containsImageName(filename)) {
+                    try {
+                        Files.delete(file);
+                        LOGGER.info("Deleted extra image: " + filename);
+
+                    } catch (IOException e) {
+                        LOGGER.error("Could not delete extra image: " + filename);
+                    }
+                }
+
+            });
+        } catch (IOException ex) {
+            LOGGER.error("Could not list directory: " + dirPath);
+        }
+    }
+
+    private void setExistingExtraImageNames(String[] imageIDs, String[] imageNames,
+                                            Product product) {
+        if (imageIDs == null || imageIDs.length == 0) return;
+
+        Set<ProductImage> images = new HashSet<>();
+
+        for (int count = 0; count < imageIDs.length; count++) {
+            Integer id = Integer.parseInt(imageIDs[count]);
+            String name = imageNames[count];
+
+            images.add(new ProductImage(id, name, product));
+        }
+
+        product.setImages(images);
+
+    }
+
+    private void setProductDetails(String[] detailIDs, String[] detailNames,
+                                   String[] detailValues, Product product) {
+        if (detailNames == null || detailNames.length == 0) return;
+
+        for (int count = 0; count < detailNames.length; count++) {
+            String name = detailNames[count];
+            String value = detailValues[count];
+            Integer id = Integer.parseInt(detailIDs[count]);
+
+            if (id != 0) {
+                product.addDetail(id, name, value);
+            } else if (!name.isEmpty() && !value.isEmpty()) {
+                product.addDetail(name, value);
+            }
+        }
     }
 
     private void saveUploadedImages(MultipartFile mainImageMultipart,
@@ -96,12 +177,15 @@ public class ProductController {
 
     }
 
-    private void setExtraImageNames(MultipartFile[] extraImageMultiparts, Product product) {
+    private void setNewExtraImageNames(MultipartFile[] extraImageMultiparts, Product product) {
         if (extraImageMultiparts.length > 0) {
             for (MultipartFile multipartFile : extraImageMultiparts) {
                 if (!multipartFile.isEmpty()) {
                     String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-                    product.addExtraImage(fileName);
+
+                    if (!product.containsImageName(fileName)) {
+                        product.addExtraImage(fileName);
+                    }
                 }
             }
         }
@@ -113,6 +197,7 @@ public class ProductController {
             product.setMainImage(fileName);
         }
     }
+
     @GetMapping("/products/{id}/enabled/{status}")
     public String updateCategoryEnabledStatus(@PathVariable("id") Integer id,
                                               @PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
@@ -143,5 +228,44 @@ public class ProductController {
         }
 
         return "redirect:/products";
+    }
+
+    @GetMapping("/products/edit/{id}")
+    public String editProduct(@PathVariable("id") Integer id, Model model,
+                              RedirectAttributes ra) {
+        try {
+            Product product = productService.get(id);
+            List<Brand> listBrands = brandService.listAll();
+            Integer numberOfExistingExtraImages = product.getImages().size();
+
+            model.addAttribute("product", product);
+            model.addAttribute("listBrands", listBrands);
+            model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
+            model.addAttribute("numberOfExistingExtraImages", numberOfExistingExtraImages);
+
+
+            return "products/product_form";
+
+        } catch (ProductNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+
+            return "redirect:/products";
+        }
+    }
+
+    @GetMapping("/products/detail/{id}")
+    public String viewProductDetails(@PathVariable("id") Integer id, Model model,
+                                     RedirectAttributes ra) {
+        try {
+            Product product = productService.get(id);
+            model.addAttribute("product", product);
+
+            return "products/product_detail_modal";
+
+        } catch (ProductNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+
+            return "redirect:/products";
+        }
     }
 }
