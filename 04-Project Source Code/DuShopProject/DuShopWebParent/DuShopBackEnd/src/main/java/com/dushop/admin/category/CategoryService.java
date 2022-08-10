@@ -118,7 +118,20 @@ public class CategoryService {
 
     }
 
+    /*
+     * @description: Category for product search
+     * @author: Jiang Chufeng
+     * @date: 2022/8/9 0:13
+     * @param: category
+     * @return: com.dushop.common.entity.Category
+     */
     public Category save(Category category) {
+        Category parent = category.getParent();
+        if (parent != null) {
+            String allParentIds = parent.getAllParentIDs() == null ? "-" : parent.getAllParentIDs();
+            allParentIds += String.valueOf(parent.getId()) + "-";
+            category.setAllParentIDs(allParentIds);
+        }
         return repo.save(category);
     }
 
