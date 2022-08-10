@@ -3,7 +3,7 @@ package com.dushop.common.entity;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
+import java.util.Iterator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -151,5 +151,6 @@ public class User extends IdBasedEntity {
 
         return false;
     }
+
 }
 

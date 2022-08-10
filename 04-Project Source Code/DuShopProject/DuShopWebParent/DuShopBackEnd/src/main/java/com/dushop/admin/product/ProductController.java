@@ -3,11 +3,13 @@ package com.dushop.admin.product;
 import java.util.List;
 import java.io.IOException;
 import org.springframework.util.StringUtils;
+import com.dushop.admin.security.DuShopUserDetails;
 
 import com.dushop.admin.category.CategoryService;
 import com.dushop.common.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -110,15 +112,23 @@ public class ProductController {
 
     @PostMapping("/products/save")
     public String saveProduct(Product product, RedirectAttributes ra,
-                              @RequestParam("fileImage") MultipartFile mainImageMultipart,
-                              @RequestParam("extraImage") MultipartFile[] extraImageMultiparts,
+                              @RequestParam(value = "fileImage", required = false) MultipartFile mainImageMultipart,
+                              @RequestParam(value = "extraImage", required = false) MultipartFile[] extraImageMultiparts,
                               @RequestParam(name = "detailIDs", required = false) String[] detailIDs,
                               @RequestParam(name = "detailNames", required = false) String[] detailNames,
                               @RequestParam(name = "detailValues", required = false) String[] detailValues,
                               @RequestParam(name = "imageIDs", required = false) String[] imageIDs,
-                              @RequestParam(name = "imageNames", required = false) String[] imageNames
+                              @RequestParam(name = "imageNames", required = false) String[] imageNames,
+                              @AuthenticationPrincipal DuShopUserDetails loggedUser
     )
             throws IOException {
+
+        if (loggedUser.hasRole("Salesperson")) {
+            productService.saveProductPrice(product);
+            ra.addFlashAttribute("message", "The product has been saved successfully.");
+            return "redirect:/products";
+        }
+
         setMainImageName(mainImageMultipart, product);
         setExistingExtraImageNames(imageIDs, imageNames, product);
         setNewExtraImageNames(extraImageMultiparts, product);

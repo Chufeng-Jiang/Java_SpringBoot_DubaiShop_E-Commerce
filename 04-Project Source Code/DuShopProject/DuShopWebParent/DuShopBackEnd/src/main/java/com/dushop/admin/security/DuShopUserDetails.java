@@ -25,7 +25,7 @@ import com.dushop.common.entity.User;
 public class DuShopUserDetails implements UserDetails {
 
     private User user;
-
+    private static final long serialVersionUID = 1L;
 
     public DuShopUserDetails(User user) {
         this.user = user;
@@ -84,6 +84,10 @@ public class DuShopUserDetails implements UserDetails {
 
     public void setLastName(String lastName) {
         this.user.setLastName(lastName);
+    }
+
+    public boolean hasRole(String roleName) {
+        return user.hasRole(roleName);
     }
 
 }
