@@ -1,4 +1,4 @@
-package com.dushop.site;
+package com.dushop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
