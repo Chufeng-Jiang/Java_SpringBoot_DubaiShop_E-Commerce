@@ -129,23 +129,23 @@ public class ProductController {
             return "redirect:/products";
         }
 
-        setMainImageName(mainImageMultipart, product);
-        setExistingExtraImageNames(imageIDs, imageNames, product);
-        setNewExtraImageNames(extraImageMultiparts, product);
-        setProductDetails(detailIDs, detailNames, detailValues, product);
+        ProductSaveHelper.setMainImageName(mainImageMultipart, product);
+        ProductSaveHelper.setExistingExtraImageNames(imageIDs, imageNames, product);
+        ProductSaveHelper.setNewExtraImageNames(extraImageMultiparts, product);
+        ProductSaveHelper.setProductDetails(detailIDs, detailNames, detailValues, product);
 
         Product savedProduct = productService.save(product);
 
-        saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
+        ProductSaveHelper.saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
 
-        deleteExtraImagesWeredRemovedOnForm(product);
+        ProductSaveHelper.deleteExtraImagesWeredRemovedOnForm(product);
 
         ra.addFlashAttribute("message", "The product has been saved successfully.");
 
         return "redirect:/products";
     }
 
-    private void deleteExtraImagesWeredRemovedOnForm(Product product) {
+    /*private void deleteExtraImagesWeredRemovedOnForm(Product product) {
         String extraImageDir = "../product-images/" + product.getId() + "/extras";
         Path dirPath = Paths.get(extraImageDir);
 
@@ -245,7 +245,7 @@ public class ProductController {
             String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
             product.setMainImage(fileName);
         }
-    }
+    }*/
 
     @GetMapping("/products/{id}/enabled/{status}")
     public String updateCategoryEnabledStatus(@PathVariable("id") Integer id,
