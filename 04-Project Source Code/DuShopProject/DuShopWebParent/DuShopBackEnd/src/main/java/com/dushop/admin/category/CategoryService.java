@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 import com.dushop.common.entity.Category;
+import com.dushop.common.exception.CategoryNotFoundException;
 
 /*
  *@BelongsProject: DuShopProject
