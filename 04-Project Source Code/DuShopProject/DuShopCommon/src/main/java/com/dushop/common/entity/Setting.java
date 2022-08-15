@@ -15,10 +15,10 @@ import javax.persistence.*;
 @Table(name = "settings")
 public class Setting {
     @Id
-    @Column(name = "`key`", nullable = false, length = 128)
+    @Column(name = "`key`", nullable = false, length = 5000)
     private String key;
 
-    @Column(nullable = false, length = 1024)
+    @Column(nullable = false, length = 5000)
     private String value;
 
     @Enumerated(EnumType.STRING)

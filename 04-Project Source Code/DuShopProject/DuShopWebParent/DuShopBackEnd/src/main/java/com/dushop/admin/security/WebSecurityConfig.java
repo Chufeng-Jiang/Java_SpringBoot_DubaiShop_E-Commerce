@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         /*http.authorizeRequests().anyRequest().permitAll();*/
         http.authorizeRequests()
-                .antMatchers("/users/**").hasAuthority("Admin") //prevent unauthorize roles visit pages by url input
+                .antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin") //prevent unauthorize roles visit pages by url input
                 .antMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
                 .antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
 

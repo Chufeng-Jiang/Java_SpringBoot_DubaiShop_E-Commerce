@@ -1,4 +1,4 @@
-package com.dushop.admin.setting.state;
+package com.dushop.common.entity;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.admin.setting.state
