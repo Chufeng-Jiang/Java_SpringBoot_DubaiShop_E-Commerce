@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*
+ *@sql author Sagun Khosla <sagunxp@gmail.com>
+ *@github: https://github.com/sagunkho/geo-sql-database/blob/master/geo_states.sql
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.common.entity
  *@Author: Jiang Chufeng
