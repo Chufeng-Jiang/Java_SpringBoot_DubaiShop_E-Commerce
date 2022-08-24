@@ -35,6 +35,9 @@ public class Customer {
     @Column(nullable = false, length = 64)
     private String password;
 
+    @Column(name = "reset_password_token", length = 30)
+    private String resetPasswordToken;
+
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
@@ -81,6 +84,14 @@ public class Customer {
 
     public void setAuthenticationType(AuthenticationType authenticationType) {
         this.authenticationType = authenticationType;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
     public Customer() {
     }

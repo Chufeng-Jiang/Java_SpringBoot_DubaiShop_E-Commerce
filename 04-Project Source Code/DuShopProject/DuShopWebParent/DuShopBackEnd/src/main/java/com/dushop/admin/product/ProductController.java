@@ -102,8 +102,7 @@ public class ProductController {
                               @RequestParam(name = "imageIDs", required = false) String[] imageIDs,
                               @RequestParam(name = "imageNames", required = false) String[] imageNames,
                               @AuthenticationPrincipal DuShopUserDetails loggedUser
-    )
-            throws IOException {
+    ) throws IOException {
 
         if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Editor")) {
             if (loggedUser.hasRole("Salesperson")) {
@@ -142,8 +141,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/delete/{id}")
-    public String deleteProduct(@PathVariable(name = "id") Integer id,
-                                Model model,
+    public String deleteProduct(@PathVariable(name = "id") Integer id, Model model,
                                 RedirectAttributes redirectAttributes) {
         try {
             productService.delete(id);
@@ -164,11 +162,21 @@ public class ProductController {
 
     @GetMapping("/products/edit/{id}")
     public String editProduct(@PathVariable("id") Integer id, Model model,
-                              RedirectAttributes ra) {
+                              RedirectAttributes ra, @AuthenticationPrincipal DuShopUserDetails loggedUser) {
         try {
             Product product = productService.get(id);
             List<Brand> listBrands = brandService.listAll();
             Integer numberOfExistingExtraImages = product.getImages().size();
+
+            boolean isReadOnlyForSalesperson = false; //设置product_form, product_overview的阅读权限
+
+            if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Editor")) {
+                if (loggedUser.hasRole("Salesperson")) {
+                    isReadOnlyForSalesperson = true;
+                }
+            }
+
+            model.addAttribute("isReadOnlyForSalesperson", isReadOnlyForSalesperson);
 
             model.addAttribute("product", product);
             model.addAttribute("listBrands", listBrands);
