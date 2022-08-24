@@ -1,19 +1,19 @@
 package com.dushop.security;
 
+import com.dushop.security.oauth.CustomerOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.dushop.security.oauth.OAuth2LoginSuccessHandler;
 
 /*
  *@BelongsProject: DuShopProject
@@ -28,6 +28,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired private CustomerOAuth2UserService oAuth2UserService;
+    @Autowired private OAuth2LoginSuccessHandler oauth2LoginHandler;
+    @Autowired private DatabaseLoginSuccessHandler databaseLoginHandler;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -43,12 +46,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("email")
+                .successHandler(databaseLoginHandler)
                 .permitAll()
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(oAuth2UserService)
+                .and()
+                .successHandler(oauth2LoginHandler)
                 .and()
                 .logout().permitAll()
                 .and()
                 .rememberMe()
-                .key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ")
+                .key("5124569852_dhsjshdgdbdddyZ")
                 .tokenValiditySeconds(14 * 24 * 60 * 60)
         ;
 

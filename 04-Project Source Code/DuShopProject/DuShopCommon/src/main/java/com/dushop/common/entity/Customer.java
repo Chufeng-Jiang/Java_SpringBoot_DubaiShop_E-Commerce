@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.common.entity
@@ -70,6 +71,17 @@ public class Customer {
     @JoinColumn(name = "country_id")
     private Country country;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "authentication_type", length = 10)
+    private AuthenticationType authenticationType;
+
+    public AuthenticationType getAuthenticationType() {
+        return authenticationType;
+    }
+
+    public void setAuthenticationType(AuthenticationType authenticationType) {
+        this.authenticationType = authenticationType;
+    }
     public Customer() {
     }
 
