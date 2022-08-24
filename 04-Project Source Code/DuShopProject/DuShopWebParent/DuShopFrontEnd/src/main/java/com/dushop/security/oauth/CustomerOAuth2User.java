@@ -17,10 +17,17 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class CustomerOAuth2User implements OAuth2User {
 
+    private String clientName;
+
     private OAuth2User oauth2User;
 
-    public CustomerOAuth2User(OAuth2User user) {
+    public CustomerOAuth2User(OAuth2User user, String clientName) {
         this.oauth2User = user;
+        this.clientName = clientName;
+    }
+
+    public String getClientName() {
+        return clientName;
     }
 
     @Override
