@@ -4,7 +4,7 @@
 
 
 <!--Using thymeleaf resuable method in fragments.html-->
-<head th:replace="fragments :: page_head('Home - Shopme Admin', 'none')" />
+<head th:replace="fragments :: page_head('Home - Dubai Shop Admin', 'none')" />
 
 <body>
 <div class="container-fluid">
@@ -13,7 +13,7 @@
         <div th:replace="navigation :: menu"></div>
 
         <div>
-                <h2>Shopme Control Panel</h2>
+                <h2>Dubai Shop Control Panel</h2>
                 Welcome
                 <a th:href="@{/account}" sec:authentication="principal.fullname"></a>
                 <span sec:authentication="principal.authorities"></span>

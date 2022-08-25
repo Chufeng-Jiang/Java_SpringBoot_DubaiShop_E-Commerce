@@ -21,8 +21,13 @@ https://github.com/sagunkho/geo-sql-database/blob/master/geo_states.sql
 
 
 GMIAL SERVER PORT 
-
 https://support.google.com/mail/answer/7126229#zippy=%2Cstep-change-smtp-other-settings-in-your-email-client
 
 How to create Google Oauth credentials
 https://www.youtube.com/watch?v=xH6hAW3EqLk
+
+How to create Facebook Oauth credentials
+
+jquery.number.min.js download  format the number
+https://github.com/customd/jquery-number
+
