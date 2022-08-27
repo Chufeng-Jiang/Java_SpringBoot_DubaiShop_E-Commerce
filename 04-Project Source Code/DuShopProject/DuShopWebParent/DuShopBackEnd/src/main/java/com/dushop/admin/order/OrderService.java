@@ -5,7 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import java.util.NoSuchElementException;
 import com.dushop.admin.paging.PagingAndSortingHelper;
 import com.dushop.common.entity.Order;
 /*
@@ -48,5 +48,13 @@ public class OrderService {
         }
 
         helper.updateModelAttributes(pageNum, page);
+    }
+
+    public Order get(Integer id) throws OrderNotFoundException {
+        try {
+            return repo.findById(id).get();
+        } catch (NoSuchElementException ex) {
+            throw new OrderNotFoundException("Could not find any orders with ID " + id);
+        }
     }
 }

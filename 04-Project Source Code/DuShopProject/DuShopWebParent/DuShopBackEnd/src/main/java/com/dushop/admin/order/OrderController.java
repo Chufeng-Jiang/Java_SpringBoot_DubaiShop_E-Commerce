@@ -8,18 +8,19 @@ package com.dushop.admin.order;
  *@Version: 1.0
  */
 import java.util.List;
-
+import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dushop.admin.paging.PagingAndSortingHelper;
 import com.dushop.admin.paging.PagingAndSortingParam;
 import com.dushop.admin.setting.SettingService;
 import com.dushop.common.entity.Setting;
+import com.dushop.common.entity.Order;
 
 @Controller
 public class OrderController {
@@ -51,5 +52,21 @@ public class OrderController {
         for (Setting setting : currencySettings) {
             request.setAttribute(setting.getKey(), setting.getValue());
         }
+    }
+
+    @GetMapping("/orders/detail/{id}")
+    public String viewOrderDetails(@PathVariable("id") Integer id, Model model,
+                                   RedirectAttributes ra, HttpServletRequest request) {
+        try {
+            Order order = orderService.get(id);
+            loadCurrencySetting(request);
+            model.addAttribute("order", order);
+
+            return "orders/order_details_modal";
+        } catch (OrderNotFoundException ex) {
+            ra.addFlashAttribute("message", ex.getMessage());
+            return defaultRedirectURL;
+        }
+
     }
 }
