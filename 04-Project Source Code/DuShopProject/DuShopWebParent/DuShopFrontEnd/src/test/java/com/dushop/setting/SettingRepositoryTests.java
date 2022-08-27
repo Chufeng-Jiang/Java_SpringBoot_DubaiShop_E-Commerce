@@ -9,8 +9,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import com.dushop.common.entity.Setting;
-import com.dushop.common.entity.SettingCategory;
+import com.dushop.common.entity.dubaishop_setting.Setting;
+import com.dushop.common.entity.dubaishop_setting.SettingCategory;
 
 /*
  *@BelongsProject: DuShopProject
