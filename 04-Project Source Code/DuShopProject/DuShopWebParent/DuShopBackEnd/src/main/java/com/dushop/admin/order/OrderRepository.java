@@ -4,8 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
 import com.dushop.admin.paging.SearchRepository;
-import com.dushop.common.entity.Order;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import com.dushop.common.entity.order.Order;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.order

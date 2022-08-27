@@ -2,7 +2,7 @@ package com.dushop.admin.product;
 
 import java.util.List;
 import java.io.IOException;
-import org.springframework.util.StringUtils;
+
 import com.dushop.admin.security.DuShopUserDetails;
 import com.dushop.common.exception.ProductNotFoundException;
 import com.dushop.admin.category.CategoryService;
@@ -18,21 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dushop.admin.brand.BrandService;
 import com.dushop.common.entity.Brand;
-import com.dushop.common.entity.Product;
-import com.dushop.common.entity.ProductImage;
+import com.dushop.common.entity.product.Product;
 import com.dushop.admin.FileUploadUtil;
 import com.dushop.admin.paging.PagingAndSortingHelper;
 import com.dushop.admin.paging.PagingAndSortingParam;

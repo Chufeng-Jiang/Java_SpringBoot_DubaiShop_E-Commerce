@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.dushop.common.entity.CartItem;
 import com.dushop.common.entity.Customer;
-import com.dushop.common.entity.Product;
+import com.dushop.common.entity.product.Product;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.shoppingcart

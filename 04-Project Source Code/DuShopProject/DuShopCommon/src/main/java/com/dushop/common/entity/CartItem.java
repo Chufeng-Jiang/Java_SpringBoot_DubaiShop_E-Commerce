@@ -1,5 +1,7 @@
 package com.dushop.common.entity;
 
+import com.dushop.common.entity.product.Product;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +22,8 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "cart_items")
-public class CartItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @ManyToOne
+public class CartItem extends IdBasedEntity {
+        @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
@@ -38,13 +36,6 @@ public class CartItem {
     public CartItem() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Customer getCustomer() {
         return customer;

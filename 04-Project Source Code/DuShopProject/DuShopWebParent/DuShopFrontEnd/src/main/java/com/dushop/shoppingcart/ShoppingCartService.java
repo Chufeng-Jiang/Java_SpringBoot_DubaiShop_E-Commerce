@@ -3,12 +3,11 @@ package com.dushop.shoppingcart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 import javax.transaction.Transactional;
 import com.dushop.common.entity.CartItem;
 import com.dushop.common.entity.Customer;
 import com.dushop.product.ProductRepository;
-import com.dushop.common.entity.Product;
+import com.dushop.common.entity.product.Product;
 
 /*
  *@BelongsProject: DuShopProject

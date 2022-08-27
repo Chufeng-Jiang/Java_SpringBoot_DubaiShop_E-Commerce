@@ -1,7 +1,7 @@
 package com.dushop.category;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import com.dushop.common.entity.dubaishop_product.Product;
+import com.dushop.common.entity.product.Product;
 
 import com.dushop.product.ProductRepository;
 import org.junit.jupiter.api.Test;

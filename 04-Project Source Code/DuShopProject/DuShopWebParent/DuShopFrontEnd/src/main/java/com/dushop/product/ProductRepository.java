@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.dushop.common.entity.Product;
+import com.dushop.common.entity.product.Product;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.product

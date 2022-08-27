@@ -1,7 +1,7 @@
 package com.dushop.order;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.dushop.common.entity.Order;
+import com.dushop.common.entity.order.Order;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.order

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.dushop.common.entity.Product;
+import com.dushop.common.entity.product.Product;
 
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
     public Product findByName(String name);

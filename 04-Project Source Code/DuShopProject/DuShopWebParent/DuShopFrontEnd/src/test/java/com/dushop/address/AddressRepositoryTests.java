@@ -27,23 +27,25 @@ import com.dushop.common.entity.Customer;
 @Rollback(false)
 public class AddressRepositoryTests {
 
-    @Autowired private AddressRepository repo;
+    @Autowired
+    private AddressRepository repo;
 
     @Test
     public void testAddNew() {
-        Integer customerId = 3;
-        Integer countryId = 8; // USA
+        Integer customerId = 5;
+        Integer countryId = 234; // USA
 
         Address newAddress = new Address();
         newAddress.setCustomer(new Customer(customerId));
         newAddress.setCountry(new Country(countryId));
-        newAddress.setFirstName("Tan");
-        newAddress.setLastName("Zhuo");
-        newAddress.setPhoneNumber("123-456-1235");
-        newAddress.setAddressLine1("Silicon oasis");
-        newAddress.setCity("Dubai");
-        newAddress.setState("Dubai");
-        newAddress.setPostalCode("00234");
+        newAddress.setFirstName("Tobie");
+        newAddress.setLastName("Abel");
+        newAddress.setPhoneNumber("19094644165");
+        newAddress.setAddressLine1("4213 Gordon Street");
+        newAddress.setAddressLine2("Novak Building");
+        newAddress.setCity("Chino");
+        newAddress.setState("California");
+        newAddress.setPostalCode("91710");
 
         Address savedAddress = repo.save(newAddress);
 
@@ -86,7 +88,7 @@ public class AddressRepositoryTests {
     @Test
     public void testDeleteByIdAndCustomer() {
         Integer addressId = 1;
-        Integer customerId = 3;
+        Integer customerId = 5;
 
         repo.deleteByIdAndCustomer(addressId, customerId);
 
@@ -108,13 +110,5 @@ public class AddressRepositoryTests {
         Integer addressId = 8;
         Integer customerId = 5;
         repo.setNonDefaultForOthers(addressId, customerId);
-    }
-
-    @Test
-    public void testGetDefault() {
-        Integer customerId = 5;
-        Address address = repo.findDefaultByCustomer(customerId);
-        assertThat(address).isNotNull();
-        System.out.println(address);
     }
 }

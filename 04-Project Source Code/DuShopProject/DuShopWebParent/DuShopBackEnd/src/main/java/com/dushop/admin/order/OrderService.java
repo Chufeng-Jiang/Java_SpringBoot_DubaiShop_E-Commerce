@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import com.dushop.admin.paging.PagingAndSortingHelper;
-import com.dushop.common.entity.Order;
+import com.dushop.common.entity.order.Order;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.admin.order

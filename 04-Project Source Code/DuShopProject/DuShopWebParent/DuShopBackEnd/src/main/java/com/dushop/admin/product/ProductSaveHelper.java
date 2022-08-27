@@ -13,8 +13,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dushop.admin.FileUploadUtil;
-import com.dushop.common.entity.Product;
-import com.dushop.common.entity.ProductImage;
+import com.dushop.common.entity.product.Product;
+import com.dushop.common.entity.product.ProductImage;
 
 /*
  *@BelongsProject: DuShopProject

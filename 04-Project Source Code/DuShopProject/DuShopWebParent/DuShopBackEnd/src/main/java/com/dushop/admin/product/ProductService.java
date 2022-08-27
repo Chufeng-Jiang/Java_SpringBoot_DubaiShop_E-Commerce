@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import com.dushop.common.exception.ProductNotFoundException;
-import com.dushop.common.entity.Product;
+import com.dushop.common.entity.product.Product;
 import com.dushop.admin.paging.PagingAndSortingHelper;
 
 /*

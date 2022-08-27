@@ -1,0 +1,36 @@
+server:
+  port: 80
+  servlet:
+    context-path: /DuShop
+spring:
+  datasource:
+    password: root
+    url: jdbc:mysql://localhost:3306/dushopdb
+    username: root
+  main:
+    allow-circular-references: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 214630612977-1n1m0fo6f405cfgmhk94424gsj21k520.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+          facebook:
+            client-id: 794834545304683
+            client-secret: 78884de3439ce2e908f9ae58df325ad6
+            scope:
+              - email
+              - public_profile

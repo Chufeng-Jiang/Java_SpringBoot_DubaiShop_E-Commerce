@@ -20,11 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "addresses")
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class Address extends IdBasedEntity{
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
@@ -59,15 +55,7 @@ public class Address {
 
     @Column(name = "default_address")
     private boolean defaultForShipping;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    
     public String getFirstName() {
         return firstName;
     }

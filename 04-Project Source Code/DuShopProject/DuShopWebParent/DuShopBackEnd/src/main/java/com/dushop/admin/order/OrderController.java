@@ -19,8 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dushop.admin.paging.PagingAndSortingHelper;
 import com.dushop.admin.paging.PagingAndSortingParam;
 import com.dushop.admin.setting.SettingService;
-import com.dushop.common.entity.Setting;
-import com.dushop.common.entity.Order;
+import com.dushop.common.entity.setting.Setting;
+import com.dushop.common.entity.order.Order;
 
 @Controller
 public class OrderController {

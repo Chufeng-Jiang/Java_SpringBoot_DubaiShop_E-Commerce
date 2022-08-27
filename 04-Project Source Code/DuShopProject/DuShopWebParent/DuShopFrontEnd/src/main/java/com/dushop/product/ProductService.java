@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.dushop.common.exception.ProductNotFoundException;
-import com.dushop.common.entity.Product;
+import com.dushop.common.entity.product.Product;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.product

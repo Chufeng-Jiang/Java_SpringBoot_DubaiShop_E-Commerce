@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dushop.admin.FileUploadUtil;
 import com.dushop.common.entity.Currency;
-import com.dushop.common.entity.Setting;
+import com.dushop.common.entity.setting.Setting;
 
 /*
  *@BelongsProject: DuShopProject

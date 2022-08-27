@@ -14,11 +14,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
 import com.dushop.common.entity.Customer;
-import com.dushop.common.entity.Order;
-import com.dushop.common.entity.OrderDetail;
-import com.dushop.common.entity.OrderStatus;
-import com.dushop.common.entity.PaymentMethod;
-import com.dushop.common.entity.Product;
+import com.dushop.common.entity.order.Order;
+import com.dushop.common.entity.order.OrderDetail;
+import com.dushop.common.entity.order.OrderStatus;
+import com.dushop.common.entity.order.PaymentMethod;
+import com.dushop.common.entity.product.Product;
 
 /*
  *@BelongsProject: DuShopProject
