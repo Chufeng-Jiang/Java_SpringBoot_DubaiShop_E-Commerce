@@ -20,7 +20,8 @@ import com.dushop.common.entity.SettingCategory;
 
 @Service
 public class SettingService {
-    @Autowired private SettingRepository repo;
+    @Autowired
+    private SettingRepository repo;
 
     public List<Setting> listAllSettings() {
         return (List<Setting>) repo.findAll();
@@ -48,5 +49,9 @@ public class SettingService {
 
     public List<Setting> getMailTemplateSettings() {
         return repo.findByCategory(SettingCategory.MAIL_TEMPLATES);
+    }
+
+    public List<Setting> getCurrencySettings() {
+        return repo.findByCategory(SettingCategory.CURRENCY);
     }
 }

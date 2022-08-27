@@ -126,7 +126,7 @@ https://programmer.ink/think/thymeleaf-series-6-template-layout.html
     </div>
 </div>
 
-<<div th:fragment="search_form_and_message()">
+<div th:fragment="search_form_and_message()">
     <form th:action="@{${moduleURL} + '/page/1'}" class="form-inline m-3">
         <input type="hidden" name="sortField" th:value="${sortField}" />
         <input type="hidden" name="sortDir" th:value="${sortDir}" />
@@ -146,7 +146,13 @@ https://programmer.ink/think/thymeleaf-series-6-template-layout.html
     <div th:if="${message != null}" class="alert alert-success text-center">
         [[${message}]]
     </div>
-
 </div>
+    <div th:fragment="format_currency(amount)" th:remove="tag">
+        <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+    </div>
+
+    <div th:fragment="format_time(dateTime)" th:remove="tag">
+        <span th:text="${#dates.format(dateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    </div>
 </body>
 </html>
