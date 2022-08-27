@@ -14,11 +14,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
 import com.dushop.common.entity.Customer;
-import com.dushop.common.entity.dubaishop_order.Order;
-import com.dushop.common.entity.dubaishop_order.OrderDetail;
-import com.dushop.common.entity.dubaishop_order.OrderStatus;
-import com.dushop.common.entity.dubaishop_order.PaymentMethod;
-import com.dushop.common.entity.dubaishop_product.Product;
+import com.dushop.common.entity.Order;
+import com.dushop.common.entity.OrderDetail;
+import com.dushop.common.entity.OrderStatus;
+import com.dushop.common.entity.PaymentMethod;
+import com.dushop.common.entity.Product;
 
 /*
  *@BelongsProject: DuShopProject
@@ -76,8 +76,8 @@ public class OrderRepositoryTests {
 
     @Test
     public void testCreateNewOrderWithMultipleProducts() {
-        Customer customer = entityManager.find(Customer.class, 2);
-        Product product1 = entityManager.find(Product.class, 3);
+        Customer customer = entityManager.find(Customer.class, 4);
+        Product product1 = entityManager.find(Product.class, 2);
         Product product2 = entityManager.find(Product.class, 5);
 
         Order mainOrder = new Order();

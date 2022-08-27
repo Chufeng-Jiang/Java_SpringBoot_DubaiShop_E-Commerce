@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Optional;
 
+import com.dushop.admin.setting.country.CountryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -41,7 +42,8 @@ public class CountryRestControllerTests {
 
     @Autowired ObjectMapper objectMapper;
 
-    @Autowired CountryRepository repo;
+    @Autowired
+    CountryRepository repo;
 
     @Test
     @WithMockUser(username = "nam@codejava.net", password = "something", roles = "ADMIN")

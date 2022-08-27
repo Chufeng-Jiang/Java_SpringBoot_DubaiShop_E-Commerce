@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Optional;
 
+import com.dushop.admin.setting.state.StateRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -42,7 +43,8 @@ public class StateRestControllerTests {
 
     @Autowired CountryRepository countryRepo;
 
-    @Autowired StateRepository stateRepo;
+    @Autowired
+    StateRepository stateRepo;
 
     @Test
     @WithMockUser(username = "nam", password = "something", roles = "Admin")

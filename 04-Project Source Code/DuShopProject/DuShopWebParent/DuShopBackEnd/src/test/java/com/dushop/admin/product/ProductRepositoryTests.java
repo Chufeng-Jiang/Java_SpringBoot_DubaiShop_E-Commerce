@@ -14,7 +14,7 @@ import org.springframework.test.annotation.Rollback;
 
 import com.dushop.common.entity.Brand;
 import com.dushop.common.entity.Category;
-import com.dushop.common.entity.dubaishop_product.Product;
+import com.dushop.common.entity.Product;
 
 /*
  *@BelongsProject: DuShopProject
