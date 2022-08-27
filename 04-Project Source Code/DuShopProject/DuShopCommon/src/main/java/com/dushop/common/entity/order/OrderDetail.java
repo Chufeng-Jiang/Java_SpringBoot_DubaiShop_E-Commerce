@@ -8,6 +8,7 @@ package com.dushop.common.entity.order;
  *@Version: 1.0
  */
 
+import com.dushop.common.entity.IdBasedEntity;
 import com.dushop.common.entity.product.Product;
 
 import javax.persistence.Entity;
@@ -20,11 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "order_details")
-public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class OrderDetail extends IdBasedEntity {
     private int quantity;
     private float productCost;
     private float shippingCost;
@@ -38,14 +35,6 @@ public class OrderDetail {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public int getQuantity() {
         return quantity;

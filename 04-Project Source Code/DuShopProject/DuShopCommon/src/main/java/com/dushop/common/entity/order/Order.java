@@ -1,5 +1,6 @@
 package com.dushop.common.entity.order;
 
+import com.dushop.common.entity.AbstractAddress;
 import com.dushop.common.entity.Customer;
 
 import java.util.Date;
@@ -33,8 +34,8 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "orders")
-public class Order {
-    @Id
+public class Order extends AbstractAddress {
+    /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -60,7 +61,7 @@ public class Order {
     private String state;
 
     @Column(name = "postal_code", nullable = false, length = 10)
-    private String postalCode;
+    private String postalCode;*/
 
     @Column(nullable = false, length = 45)
     private String country;
@@ -89,7 +90,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
-    public Integer getId() {
+    /*public Integer getId() {
         return id;
     }
 
@@ -160,7 +161,7 @@ public class Order {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-
+*/
     public String getCountry() {
         return country;
     }

@@ -2,6 +2,7 @@ package com.dushop.common.entity.product;
 
 import com.dushop.common.entity.Brand;
 import com.dushop.common.entity.Category;
+import com.dushop.common.entity.IdBasedEntity;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -32,11 +33,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "products")
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class Product extends IdBasedEntity {
     @Column(unique = true, length = 256, nullable = false)
     private String name;
 
@@ -94,13 +91,6 @@ public class Product {
     }
 
     public Product() {
-    }
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

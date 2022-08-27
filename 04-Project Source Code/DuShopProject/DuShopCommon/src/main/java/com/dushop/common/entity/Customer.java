@@ -25,8 +25,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "customers")
-public class Customer extends IdBasedEntity{
-
+public class Customer extends AbstractAddressWithCountry {
 
     @Column(nullable = false, unique = true, length = 45)
     private String email;
@@ -37,7 +36,7 @@ public class Customer extends IdBasedEntity{
     @Column(name = "reset_password_token", length = 30)
     private String resetPasswordToken;
 
-    @Column(name = "first_name", nullable = false, length = 45)
+    /*@Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 45)
@@ -60,7 +59,7 @@ public class Customer extends IdBasedEntity{
 
     @Column(name = "postal_code", nullable = false, length = 10)
     private String postalCode;
-
+*/
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
@@ -69,9 +68,9 @@ public class Customer extends IdBasedEntity{
     @Column(name = "created_time")
     private Date createdTime;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "country_id")
-    private Country country;
+    private Country country;*/
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authentication_type", length = 10)
@@ -117,7 +116,7 @@ public class Customer extends IdBasedEntity{
         this.password = password;
     }
 
-    public String getFirstName() {
+    /*public String getFirstName() {
         return firstName;
     }
 
@@ -179,7 +178,7 @@ public class Customer extends IdBasedEntity{
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
+    }*/
 
     public String getVerificationCode() {
         return verificationCode;
@@ -205,7 +204,7 @@ public class Customer extends IdBasedEntity{
         this.createdTime = createdTime;
     }
 
-    public Country getCountry() {
+    /*public Country getCountry() {
         return country;
     }
 
@@ -216,13 +215,13 @@ public class Customer extends IdBasedEntity{
     @Override
     public String toString() {
         return "Customer [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + "]";
-    }
+    }*/
 
     public String getFullName() {
         return firstName + " " + lastName;
     }
 
-    @Transient
+    /*@Transient
     public String getAddress() {
         String address = firstName;
 
@@ -242,5 +241,5 @@ public class Customer extends IdBasedEntity{
         if (!phoneNumber.isEmpty()) address += ". Phone Number: " + phoneNumber;
 
         return address;
-    }
+    }*/
 }

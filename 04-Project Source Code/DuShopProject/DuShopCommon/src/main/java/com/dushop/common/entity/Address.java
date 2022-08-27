@@ -20,8 +20,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "addresses")
-public class Address extends IdBasedEntity{
-    @Column(name = "first_name", nullable = false, length = 45)
+public class Address extends AbstractAddressWithCountry{
+    /*@Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 45)
@@ -47,7 +47,7 @@ public class Address extends IdBasedEntity{
 
     @ManyToOne
     @JoinColumn(name = "country_id")
-    private Country country;
+    private Country country;*/
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -55,8 +55,8 @@ public class Address extends IdBasedEntity{
 
     @Column(name = "default_address")
     private boolean defaultForShipping;
-    
-    public String getFirstName() {
+
+    /*public String getFirstName() {
         return firstName;
     }
 
@@ -126,7 +126,7 @@ public class Address extends IdBasedEntity{
 
     public void setCountry(Country country) {
         this.country = country;
-    }
+    }*/
 
     public Customer getCustomer() {
         return customer;
@@ -144,7 +144,7 @@ public class Address extends IdBasedEntity{
         this.defaultForShipping = defaultForShipping;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         String address = firstName;
 
@@ -164,7 +164,7 @@ public class Address extends IdBasedEntity{
         if (!phoneNumber.isEmpty()) address += ". Phone Number: " + phoneNumber;
 
         return address;
-    }
+    }*/
 
 
 }
