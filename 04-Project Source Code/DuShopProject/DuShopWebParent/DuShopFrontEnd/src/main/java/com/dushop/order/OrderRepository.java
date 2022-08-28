@@ -1,6 +1,6 @@
 package com.dushop.order;
 import org.springframework.data.repository.PagingAndSortingRepository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import com.dushop.common.entity.order.Order;
 /*
  *@BelongsProject: DuShopProject
@@ -10,7 +10,6 @@ import com.dushop.common.entity.order.Order;
  *@Description: TODO
  *@Version: 1.0
  */
-
-public interface OrderRepository extends PagingAndSortingRepository<Order, Integer> {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 }

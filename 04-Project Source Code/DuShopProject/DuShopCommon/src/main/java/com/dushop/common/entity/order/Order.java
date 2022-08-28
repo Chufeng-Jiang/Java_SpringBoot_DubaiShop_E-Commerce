@@ -1,6 +1,7 @@
 package com.dushop.common.entity.order;
 
 import com.dushop.common.entity.AbstractAddress;
+import com.dushop.common.entity.Address;
 import com.dushop.common.entity.Customer;
 
 import java.util.Date;
@@ -293,5 +294,16 @@ public class Order extends AbstractAddress {
         return destination;
     }
 
+    public void copyShippingAddress(Address address) {
+        setFirstName(address.getFirstName());
+        setLastName(address.getLastName());
+        setPhoneNumber(address.getPhoneNumber());
+        setAddressLine1(address.getAddressLine1());
+        setAddressLine2(address.getAddressLine2());
+        setCity(address.getCity());
+        setCountry(address.getCountry().getName());
+        setPostalCode(address.getPostalCode());
+        setState(address.getState());
+    }
 
 }
