@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "cart_items")
 public class CartItem extends IdBasedEntity {
-        @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
@@ -32,6 +32,9 @@ public class CartItem extends IdBasedEntity {
     private Product product;
 
     private int quantity;
+
+    @Transient
+    private float shippingCost;
 
     public CartItem() {
     }
@@ -72,4 +75,12 @@ public class CartItem extends IdBasedEntity {
         return product.getDiscountPrice() * quantity;
     }
 
+    @Transient
+    public float getShippingCost() {
+        return shippingCost;
+    }
+
+    public void setShippingCost(float shippingCost) {
+        this.shippingCost = shippingCost;
+    }
 }
