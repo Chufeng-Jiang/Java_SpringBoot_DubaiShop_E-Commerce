@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
+import com.dushop.setting.PaymentSettingBag;
 import java.text.SimpleDateFormat;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -22,7 +23,6 @@ import com.dushop.common.entity.ShippingRate;
 import com.dushop.customer.CustomerService;
 import com.dushop.shipping.ShippingRateService;
 import com.dushop.shoppingcart.ShoppingCartService;
-import com.dushop.order.OrderService;
 import com.dushop.order.OrderService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -76,6 +76,13 @@ public class CheckoutController {
         List<CartItem> cartItems = cartService.listCartItems(customer);
         CheckoutInfo checkoutInfo = checkoutService.prepareCheckout(cartItems, shippingRate);
 
+        String currencyCode = settingService.getCurrencyCode();
+        PaymentSettingBag paymentSettings = settingService.getPaymentSettings();
+        String paypalClientId = paymentSettings.getClientID();
+
+        model.addAttribute("paypalClientId", paypalClientId);
+        model.addAttribute("currencyCode", currencyCode);
+        model.addAttribute("customer", customer);
         model.addAttribute("checkoutInfo", checkoutInfo);
         model.addAttribute("cartItems", cartItems);
 

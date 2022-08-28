@@ -2,6 +2,7 @@ package com.dushop.checkout;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.text.DecimalFormat;
 
 /*
  *@BelongsProject: DuShopProject
@@ -73,6 +74,11 @@ public class CheckoutInfo {
 
     public void setCodSupported(boolean codSupported) {
         this.codSupported = codSupported;
+    }
+
+    public String getPaymentTotal4PayPal() {
+        DecimalFormat formatter = new DecimalFormat("###,###.##");
+        return formatter.format(paymentTotal);
     }
 
 }

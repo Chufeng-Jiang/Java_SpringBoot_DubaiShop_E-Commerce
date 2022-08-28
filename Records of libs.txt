@@ -31,3 +31,4 @@ How to create Facebook Oauth credentials
 jquery.number.min.js download  format the number
 https://github.com/customd/jquery-number
 
+https://www.appinvoice.com/en/s/documentation/how-to-get-paypal-client-id-and-secret-key-22
