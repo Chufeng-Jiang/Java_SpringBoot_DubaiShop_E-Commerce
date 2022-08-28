@@ -115,23 +115,6 @@ public class CustomerController {
         return "customer/account_form";
     }
 
-    /*move to utility
-    private String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
-        Object principal = request.getUserPrincipal();
-        String customerEmail = null;
-
-        if (principal instanceof UsernamePasswordAuthenticationToken
-                || principal instanceof RememberMeAuthenticationToken) {
-            customerEmail = request.getUserPrincipal().getName();
-        } else if (principal instanceof OAuth2AuthenticationToken) {
-            OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
-            CustomerOAuth2User oauth2User = (CustomerOAuth2User) oauth2Token.getPrincipal();
-            customerEmail = oauth2User.getEmail();
-        }
-
-        return customerEmail;
-    }*/
-
     @PostMapping("/update_account_details")
     public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra,
                                        HttpServletRequest request) {
@@ -145,6 +128,8 @@ public class CustomerController {
 
         if ("address_book".equals(redirectOption)) {
             redirectURL = "redirect:/address_book";
+        } else if ("cart".equals(redirectOption)) {
+            redirectURL = "redirect:/cart";
         }
 
         return redirectURL;

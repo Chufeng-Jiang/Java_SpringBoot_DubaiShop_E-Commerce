@@ -7,7 +7,7 @@
     <div th:replace="navigation :: search_nav"></div>
 
     <div class="text-center">
-        <h2>My Shopping Cart</h2>
+        <h2>Your Shopping Cart</h2>
     </div>
 
     <div class="row m-1">
@@ -31,18 +31,16 @@
                         <div th:replace="cart/quantity_control :: quantity_control(${item.quantity}, ${product.id})"></div>
 
                         <div>
-                            <span>Price&nbsp;</span>
+                            <span> × &nbsp;</span>
                             <div th:replace="product/product_fragment :: product_price"></div>
                         </div>
                         <div>
                             <span>=&nbsp;</span>
                             <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span><span th:id="'subtotal' + ${product.id}" class="h4 subtotal">[[${#numbers.formatDecimal(item.subtotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span><span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
-                            <span>&nbsp;</span>   <span>=&nbsp;</span>  <span>=&nbsp;</span>
-                            <span>
-                                <a class="fas fa-trash icon-dark linkRemove" style="float:right;" th:rowNumber="${status.count}"
+                            <div>
+                                <a class="fas fa-trash icon-dark linkRemove" style="float: right" th:rowNumber="${status.count}"
                                    th:href="@{'/cart/remove/' + ${product.id}}">Delete</a>
-                                <!--<a class="fas fa-trash" href="" style="float:right;" >Delete</a>-->
-                            </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,12 +56,26 @@
                 <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span><span id="total" class="h2">[[${#numbers.formatDecimal(estimatedTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span><span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
             </div>
             <div class="mt-2">
-                <button class="btn btn-danger p-4 mt-2">Check Out</button>
+                <div th:if="${shippingSupported}">
+                    <button class="btn btn-danger p-3 mt-2">Check Out</button>
+                </div>
+
+                <div th:unless="${shippingSupported}">
+                    <div><span class="h5 text-warning">No shipping available for your location</span></div>
+
+                    <div th:if="${usePrimaryAddressAsDefault}">
+                        <a th:href="@{/account_details(redirect=cart)}" class="h6">Update your address</a>
+                    </div>
+
+                    <div th:unless="${usePrimaryAddressAsDefault}">
+                        <a th:href="@{/address_book(redirect=cart)}" class="h6">Use another shipping address</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <<div id="sectionEmptyCartMessage" th:class="'text-center' + ${#lists.isEmpty(cartItems) ? '' : ' d-none'}" >
+    <div id="sectionEmptyCartMessage" th:class="'text-center' + ${#lists.isEmpty(cartItems) ? '' : ' d-none'}" >
         <h3>You have not chosen any products yet.</h3>
     </div>
 
@@ -78,6 +90,7 @@
     decimalDigits = [[${DECIMAL_DIGITS}]];
     decimalPointType = "[[${DECIMAL_POINT_TYPE}]]";
     thousandsPointType = "[[${THOUSANDS_POINT_TYPE}]]";
+
 </script>
 <script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/shopping_cart.js}"></script>

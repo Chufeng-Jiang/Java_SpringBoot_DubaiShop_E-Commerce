@@ -26,26 +26,24 @@ import com.dushop.common.entity.Customer;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 public class AddressRepositoryTests {
-
-    @Autowired
-    private AddressRepository repo;
+    @Autowired private AddressRepository repo;
 
     @Test
     public void testAddNew() {
         Integer customerId = 5;
-        Integer countryId = 234; // USA
+        Integer countryId = 8; // UAE
 
         Address newAddress = new Address();
         newAddress.setCustomer(new Customer(customerId));
         newAddress.setCountry(new Country(countryId));
-        newAddress.setFirstName("Tobie");
-        newAddress.setLastName("Abel");
-        newAddress.setPhoneNumber("19094644165");
-        newAddress.setAddressLine1("4213 Gordon Street");
-        newAddress.setAddressLine2("Novak Building");
-        newAddress.setCity("Chino");
-        newAddress.setState("California");
-        newAddress.setPostalCode("91710");
+        newAddress.setFirstName("Jiang");
+        newAddress.setLastName("Chufeng");
+        newAddress.setPhoneNumber("19094644");
+        newAddress.setAddressLine1("Gordon Street");
+        newAddress.setAddressLine2("Financial Exchange Building");
+        newAddress.setCity("Dubai");
+        newAddress.setState("Dubai");
+        newAddress.setPostalCode("234");
 
         Address savedAddress = repo.save(newAddress);
 
@@ -80,7 +78,6 @@ public class AddressRepositoryTests {
 
         Address address = repo.findById(addressId).get();
         address.setPhoneNumber(phoneNumber);
-
         Address updatedAddress = repo.save(address);
         assertThat(updatedAddress.getPhoneNumber()).isEqualTo(phoneNumber);
     }
@@ -110,5 +107,13 @@ public class AddressRepositoryTests {
         Integer addressId = 8;
         Integer customerId = 5;
         repo.setNonDefaultForOthers(addressId, customerId);
+    }
+
+    @Test
+    public void testGetDefault() {
+        Integer customerId = 4;
+        Address address = repo.findDefaultByCustomer(customerId);
+        assertThat(address).isNotNull();
+        System.out.println(address);
     }
 }
