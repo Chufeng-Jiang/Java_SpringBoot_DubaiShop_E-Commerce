@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.io.UnsupportedEncodingException;
+import com.dushop.checkout.paypal.PayPalApiException;
+import com.dushop.checkout.paypal.PayPalService;
 import java.text.DateFormat;
 import com.dushop.setting.PaymentSettingBag;
 import java.text.SimpleDateFormat;
@@ -54,6 +56,7 @@ public class CheckoutController {
     @Autowired private OrderService orderService;
     @Autowired private SettingService settingService;
 
+    @Autowired private PayPalService paypalService;
     @GetMapping("/checkout")
     public String showCheckoutPage(Model model, HttpServletRequest request) {
         Customer customer = getAuthenticatedCustomer(request);
@@ -155,6 +158,32 @@ public class CheckoutController {
 
         helper.setText(content, true);
         mailSender.send(message);
+    }
+
+    @PostMapping("/process_paypal_order")
+    public String processPayPalOrder(HttpServletRequest request, Model model)
+            throws UnsupportedEncodingException, MessagingException {
+        String orderId = request.getParameter("orderId");
+
+        String pageTitle = "Checkout Failure";
+        String message = null;
+
+        try {
+            if (paypalService.validateOrder(orderId)) {
+                return placeOrder(request);
+            } else {
+                pageTitle = "Checkout Failure";
+                message = "ERROR: Transaction could not be completed because order information is invalid";
+            }
+        } catch (PayPalApiException e) {
+            message = "ERROR: Transaction failed due to error: " + e.getMessage();
+        }
+
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("title", pageTitle);
+        model.addAttribute("message", message);
+
+        return "message";
     }
 
 }
