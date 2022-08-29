@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -240,5 +242,11 @@ public class Order extends AbstractAddress {
 
     public void setOrderTracks(List<OrderTrack> orderTracks) {
         this.orderTracks = orderTracks;
+    }
+
+    @Transient
+    public String getDeliverDateOnForm() {
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormatter.format(this.deliverDate);
     }
 }
