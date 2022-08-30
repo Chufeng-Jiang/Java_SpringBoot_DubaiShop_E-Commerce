@@ -52,6 +52,7 @@ $(document).ready(function() {
     customizeTabs();
 });
 
+
 function customizeDropDownMenu() {
     $(".navbar .dropdown").hover(
         function() {
@@ -79,3 +80,10 @@ function customizeTabs() {
         window.location.hash = e.target.hash;
     })
 }
+
+$(document).ready(function() {
+    $("#logoutLink1").on("click", function(e) {
+        e.preventDefault();
+        document.logoutForm.submit();
+    });
+});

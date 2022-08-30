@@ -192,7 +192,7 @@ public class OrderRepositoryTests {
 
     @Test
     public void testAddTrackWithStatusNewToOrder() {
-        Integer orderId = 7;
+        Integer orderId = 6;
         Order order = repo.findById(orderId).get();
 
         OrderTrack newTrack = new OrderTrack();

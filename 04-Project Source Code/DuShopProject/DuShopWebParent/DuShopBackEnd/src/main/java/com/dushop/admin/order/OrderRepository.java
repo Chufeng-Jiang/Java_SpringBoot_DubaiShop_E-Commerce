@@ -2,7 +2,8 @@ package com.dushop.admin.order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-
+import java.util.Date;
+import java.util.List;
 import com.dushop.admin.paging.SearchRepository;
 import com.dushop.common.entity.order.Order;
 /*
@@ -29,4 +30,9 @@ public interface OrderRepository extends SearchRepository<Order, Integer> {
     public Page<Order> findAll(String keyword, Pageable pageable);
 
     public Long countById(Integer id);
+
+    @Query("SELECT NEW com.dushop.common.entity.order.Order(o.id, o.orderTime, o.productCost,"
+            + " o.subtotal, o.total) FROM Order o WHERE"
+            + " o.orderTime BETWEEN ?1 AND ?2 ORDER BY o.orderTime ASC")
+    public List<Order> findByOrderTimeBetween(Date startTime, Date endTime);
 }

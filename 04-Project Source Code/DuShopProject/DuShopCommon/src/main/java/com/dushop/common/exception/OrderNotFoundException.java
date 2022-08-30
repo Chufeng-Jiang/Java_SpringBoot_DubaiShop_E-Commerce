@@ -1,4 +1,4 @@
-package com.dushop.admin.order;
+package com.dushop.common.exception;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.admin.order
