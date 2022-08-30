@@ -10,6 +10,7 @@ package com.dushop.admin.order;
 import java.util.List;
 import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.dushop.common.entity.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import com.dushop.common.entity.order.OrderDetail;
 import com.dushop.common.entity.order.OrderStatus;
 import com.dushop.common.entity.order.OrderTrack;
 import com.dushop.common.entity.product.Product;
+import com.dushop.admin.security.DuShopUserDetails;
 
 @Controller
 public class OrderController {
@@ -48,11 +50,15 @@ public class OrderController {
     public String listByPage(
             @PagingAndSortingParam(listName = "listOrders", moduleURL = "/orders") PagingAndSortingHelper helper,
             @PathVariable(name = "pageNum") int pageNum,
-            HttpServletRequest request) {
+            HttpServletRequest request,
+            @AuthenticationPrincipal DuShopUserDetails loggedUser) {
 
         orderService.listByPage(pageNum, helper);
         loadCurrencySetting(request);
 
+        if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Salesperson") && loggedUser.hasRole("Shipper")) {
+            return "orders/orders_shipper";
+        }
         return "orders/orders";
     }
 
@@ -66,10 +72,18 @@ public class OrderController {
 
     @GetMapping("/orders/detail/{id}")
     public String viewOrderDetails(@PathVariable("id") Integer id, Model model,
-                                   RedirectAttributes ra, HttpServletRequest request) {
+                                   RedirectAttributes ra, HttpServletRequest request,
+                                   @AuthenticationPrincipal DuShopUserDetails loggedUser) {
         try {
             Order order = orderService.get(id);
             loadCurrencySetting(request);
+            boolean isVisibleForAdminOrSalesperson = false;
+
+            if (loggedUser.hasRole("Admin") || loggedUser.hasRole("Salesperson")) {
+                isVisibleForAdminOrSalesperson = true;
+            }
+
+            model.addAttribute("isVisibleForAdminOrSalesperson", isVisibleForAdminOrSalesperson);
             model.addAttribute("order", order);
 
             return "orders/order_details_modal";

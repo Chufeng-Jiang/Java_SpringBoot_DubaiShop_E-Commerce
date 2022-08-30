@@ -30,9 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new DuShopUserDetailsService();
     }
 
-    /*https://www.programcreek.com/java-api-examples/?api=org.springframework.security.authentication.dao.DaoAuthenticationProvider
-        Example #6
-         */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -46,8 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
-
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
@@ -55,10 +50,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http.authorizeRequests().anyRequest().permitAll();*/
         http.authorizeRequests()
-                .antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin") //prevent unauthorize roles visit pages by url input
-                .antMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
+                .antMatchers("/states/list_by_country/**").hasAnyAuthority("Admin", "Salesperson")
+                .antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
                 .antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
 
                 .antMatchers("/products/new", "/products/delete/**").hasAnyAuthority("Admin", "Editor")
@@ -70,10 +64,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
 
                 .antMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
+
+                .antMatchers("/orders", "/orders/", "/orders/page/**", "/orders/detail/**").hasAnyAuthority("Admin", "Salesperson", "Shipper")
+
                 .antMatchers("/customers/**", "/orders/**", "/get_shipping_cost").hasAnyAuthority("Admin", "Salesperson")
 
+                .antMatchers("/orders_shipper/update/**").hasAuthority("Shipper")
 
-              //  .antMatchers("/products/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -82,21 +79,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and().logout().permitAll()
                 .and()
-                        .rememberMe()
-                        .key("keyforpersistentconnect_15649873484")
-                        .tokenValiditySeconds(2* 7 * 24 *3600); // keep for 2 weeks
+                .rememberMe()
+                .key("AbcDefgHijKlmnOpqrs_1234567890")
+                .tokenValiditySeconds(7 * 24 * 60 * 60);
+        ;
         http.headers().frameOptions().sameOrigin();
     }
 
-    /* In Spring Security 5.4 we also introduced the WebSecurityCustomizer.
-    The WebSecurityCustomizer is a callback interface that can be used to customize WebSecurity.
-    Below is an example configuration using the WebSecurityConfigurerAdapter that ignores requests
-    that match /ignore1 or /ignore2:
-    https://www.baeldung.com/spring-security-expressions
-    */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
     }
+
 
 }

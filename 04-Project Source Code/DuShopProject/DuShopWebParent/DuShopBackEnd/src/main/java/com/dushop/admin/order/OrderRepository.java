@@ -16,7 +16,9 @@ import com.dushop.common.entity.order.Order;
 
 public interface OrderRepository extends SearchRepository<Order, Integer> {
 
-    @Query("SELECT o FROM Order o WHERE o.firstName LIKE %?1% OR"
+    @Query("SELECT o FROM Order o WHERE CONCAT('#', o.id) LIKE %?1% OR "
+            + " CONCAT(o.firstName, ' ', o.lastName) LIKE %?1% OR"
+            + " o.firstName LIKE %?1% OR"
             + " o.lastName LIKE %?1% OR o.phoneNumber LIKE %?1% OR"
             + " o.addressLine1 LIKE %?1% OR o.addressLine2 LIKE %?1% OR"
             + " o.postalCode LIKE %?1% OR o.city LIKE %?1% OR"
@@ -27,5 +29,4 @@ public interface OrderRepository extends SearchRepository<Order, Integer> {
     public Page<Order> findAll(String keyword, Pageable pageable);
 
     public Long countById(Integer id);
-
 }
