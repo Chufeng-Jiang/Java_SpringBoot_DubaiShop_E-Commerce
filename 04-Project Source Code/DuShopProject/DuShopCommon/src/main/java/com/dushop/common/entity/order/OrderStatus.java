@@ -1,4 +1,9 @@
 package com.dushop.common.entity.order;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.common.entity
@@ -9,6 +14,7 @@ package com.dushop.common.entity.order;
  */
 
 public enum OrderStatus {
+
     NEW {
         @Override
         public String defaultDescription() {
@@ -76,7 +82,7 @@ public enum OrderStatus {
     REFUNDED {
         @Override
         public String defaultDescription() {
-            return "Customer has been refund	ed";
+            return "Customer has been refunded";
         }
     };
 
