@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
 
                 .antMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
-                .antMatchers("/customers/**", "/orders/**").hasAnyAuthority("Admin", "Salesperson")
+                .antMatchers("/customers/**", "/orders/**", "/get_shipping_cost").hasAnyAuthority("Admin", "Salesperson")
 
 
               //  .antMatchers("/products/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
@@ -85,6 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .rememberMe()
                         .key("keyforpersistentconnect_15649873484")
                         .tokenValiditySeconds(2* 7 * 24 *3600); // keep for 2 weeks
+        http.headers().frameOptions().sameOrigin();
     }
 
     /* In Spring Security 5.4 we also introduced the WebSecurityCustomizer.
