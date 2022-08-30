@@ -16,6 +16,10 @@ import com.dushop.common.entity.order.OrderDetail;
 import com.dushop.common.entity.order.OrderStatus;
 import com.dushop.common.entity.order.PaymentMethod;
 import com.dushop.common.entity.product.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 /*
  *@BelongsProject: DuShopProject
@@ -30,6 +34,7 @@ import com.dushop.common.entity.product.Product;
 @Service
 public class OrderService {
 
+    public static final int ORDERS_PER_PAGE = 5;
     @Autowired private OrderRepository repo;
 
     public Order createOrder(Customer customer, Address address, List<CartItem> cartItems,
@@ -77,4 +82,20 @@ public class OrderService {
 
         return repo.save(newOrder);
     }
+
+    public Page<Order> listForCustomerByPage(Customer customer, int pageNum,
+                                             String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNum - 1, ORDERS_PER_PAGE, sort);
+
+        if (keyword != null) {
+            return repo.findAll(keyword, customer.getId(), pageable);
+        }
+
+        return repo.findAll(customer.getId(), pageable);
+
+    }
+
 }
