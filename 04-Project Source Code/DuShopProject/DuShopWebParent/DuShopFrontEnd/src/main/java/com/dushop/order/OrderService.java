@@ -98,4 +98,8 @@ public class OrderService {
 
     }
 
+    public Order getOrder(Integer id, Customer customer) {
+        return repo.findByIdAndCustomer(id, customer);
+    }
+
 }

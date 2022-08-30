@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.dushop.common.entity.order.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import com.dushop.common.entity.Customer;
 import org.springframework.data.jpa.repository.Query;
 
 /*
@@ -24,4 +25,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT o FROM Order o WHERE o.customer.id = ?1")
     public Page<Order> findAll(Integer customerId, Pageable pageable);
 
+    public Order findByIdAndCustomer(Integer id, Customer customer);
 }
