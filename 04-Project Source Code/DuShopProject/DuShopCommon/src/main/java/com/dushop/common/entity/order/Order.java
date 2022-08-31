@@ -34,18 +34,14 @@ import javax.persistence.Transient;
 *@Description: TODO
 *@Version: 1.0
 */
-
-
-
-@Entity
-@Table(name = "orders")
+@Entity //加在实体类上, 定义对象将会成为被JPA管理的实体, 将映射到指定的数据库。
+@Table(name = "orders") //指定数据库的表名。
 public class Order extends AbstractAddress {
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 45) // 声明该属性与数据库字段的映射关系。
     private String country;
 
     private Date orderTime;
-
     private float shippingCost;
     private float productCost;
     private float subtotal;
@@ -55,15 +51,22 @@ public class Order extends AbstractAddress {
     private int deliverDays;
     private Date deliverDate;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //用于标注枚举字段,对应mysql的enum类型
     private PaymentMethod paymentMethod;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)  //用于标注枚举字段,对应mysql的enum类型
     private OrderStatus status;
 
+    /*
+     * 多对一关联关系
+     * 延迟加载：fetch = FetchType.LAZY
+     * 引用外键：customer_id
+     */
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id") //注释本表中指向另一个表的外键。
     private Customer customer;
+//@JoinColumn注释的是保存表与表之间关系的字段，它要标注在实体属性上。
+// name属性是用来标识表中所对应的字段的名称。
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderDetail> orderDetails = new HashSet<>();

@@ -2,6 +2,7 @@ package com.dushop.common.entity;import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
 /*
  * @BelongsProject: DuShopProject
  * @BelongsPackage: com.dushop.common.entity
@@ -11,10 +12,25 @@ import javax.persistence.MappedSuperclass;
  * @Version: 1.0
  */
 
+/*
+ * @description: Base ID for customer ID purpose
+ * @author: Jiang Chufeng
+ * @date: 2022/8/31 17:40
+ * @param: null
+ * @return:
+ */
+
 @MappedSuperclass
 public abstract class IdBasedEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+/*
+ * 主键
+ * 生成策略为自动增长
+ * 唯一、长度为
+ */
+
+    @Id //定义属性为数据库的主键，一个实体里面必须有一个。
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //为主键生成策略
     protected Integer id; // The table role - 1st Attribute: id
 
     public Integer getId() {

@@ -1,12 +1,4 @@
 package com.dushop.common.entity.order;
-/*
- *@BelongsProject: DuShopProject
- *@BelongsPackage: com.dushop.common.entity
- *@Author: Jiang Chufeng
- *@CreateTime: 2022-08-27  16:43
- *@Description: TODO
- *@Version: 1.0
- */
 
 import com.dushop.common.entity.IdBasedEntity;
 import com.dushop.common.entity.product.Product;
@@ -19,7 +11,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.dushop.common.entity.Category;
-@Entity
+
+/*
+ *@BelongsProject: DuShopProject
+ *@BelongsPackage: com.dushop.common.entity
+ *@Author: Jiang Chufeng
+ *@CreateTime: 2022-08-27  16:43
+ *@Description: TODO
+ *@Version: 1.0
+ */
+
+
+@Entity //加在实体类上, 定义对象将会成为被JPA管理的实体, 将映射到指定的数据库。
 @Table(name = "order_details")
 public class OrderDetail extends IdBasedEntity {
     private int quantity;

@@ -15,10 +15,10 @@ import java.lang.annotation.Target;
  *@Version: 1.0
  */
 
-@Retention(RUNTIME)
-@Target(PARAMETER)
-public @interface PagingAndSortingParam {
-    public String moduleURL();
-
+@Retention(RUNTIME) //用来表示注解的生命周期
+@Target(PARAMETER) //此注解说明注解的作用目标，默认值为任何元素, 允许作用在方法参数上
+ public @interface PagingAndSortingParam {
     public String listName();
+
+    public String moduleURL();
 }

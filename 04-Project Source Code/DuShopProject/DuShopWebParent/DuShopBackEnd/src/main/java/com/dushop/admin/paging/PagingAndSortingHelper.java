@@ -18,11 +18,22 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  */
 
 public class PagingAndSortingHelper {
-    private ModelAndViewContainer model;
+    private ModelAndViewContainer model ;
     private String listName;
-    private String sortField;
     private String sortDir;
+    private String sortField;
+
     private String keyword;
+
+/*
+    public PagingAndSortingHelper(ModelAndViewContainer model,String listName, String sortField, String sortDir, String keyword) {
+        this.MVC_Model = model;
+        this.listName = listName;
+        this.sortDir = sortDir;
+        this.sortField = sortField;
+        this.keyword = keyword;
+    }
+*/
 
     public PagingAndSortingHelper(ModelAndViewContainer model,String listName,
                                   String sortField, String sortDir, String keyword) {
@@ -32,6 +43,41 @@ public class PagingAndSortingHelper {
         this.sortDir = sortDir;
         this.keyword = keyword;
     }
+
+    /*public void updateModelAttributes(int pageNumber, Page<?> page) {
+        List<?> listItems = page.getContent();
+
+        int pageSize = page.getSize();
+
+        //起始页码
+        long startNumber = (pageNumber - 1) * pageSize + 1;
+
+        //结束页码
+        long endNumber = startNumber + pageSize - 1;
+
+        if (endNumber > page.getTotalElements()) {
+            endNumber = page.getTotalElements();
+        }
+
+        //当前页码
+        MVC_Model.addAttribute("currentPage", pageNumber);
+
+        //总页码
+        MVC_Model.addAttribute("totalPages", page.getTotalPages());
+
+        //起始页码
+        MVC_Model.addAttribute("startNmber", startNumber);
+
+        //结束页码
+        MVC_Model.addAttribute("endNumber", endNumber);
+
+        //记录总数
+        MVC_Model.addAttribute("totalItems", page.getTotalElements());
+
+        //列出来的记录
+        MVC_Model.addAttribute(listName, listItems);
+    }
+*/
 
     public void updateModelAttributes(int pageNum, Page<?> page) {
         List<?> listItems = page.getContent();
@@ -52,7 +98,10 @@ public class PagingAndSortingHelper {
     }
 
     public void listEntities(int pageNum, int pageSize, SearchRepository<?, Integer> repo) {
+
+        //Pageable 是Spring Data库中定义的一个接口,用于构造翻页查询,是所有分页相关信息的一个抽象
         Pageable pageable = createPageable(pageSize, pageNum);
+
         Page<?> page = null;
 
         if (keyword != null) {
