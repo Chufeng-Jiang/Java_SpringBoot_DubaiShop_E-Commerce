@@ -29,8 +29,10 @@ import com.dushop.common.entity.order.OrderTrack;
 public class OrderService {
     private static final int ORDERS_PER_PAGE = 10;
 
-    @Autowired private OrderRepository orderRepo;
-    @Autowired private CountryRepository countryRepo;
+    @Autowired
+    private OrderRepository orderRepo;
+    @Autowired
+    private CountryRepository countryRepo;
 
     public void listByPage(int pageNum, PagingAndSortingHelper helper) {
         String sortField = helper.getSortField();
