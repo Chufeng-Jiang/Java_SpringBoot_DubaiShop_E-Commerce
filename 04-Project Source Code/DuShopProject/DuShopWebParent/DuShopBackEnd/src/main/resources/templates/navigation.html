@@ -48,7 +48,7 @@
                     </li>
                 </th:block>
 
-                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor', 'Shipper')">
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson',  'Shipper')">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown"
                            th:href="@{/products}">Products</a>

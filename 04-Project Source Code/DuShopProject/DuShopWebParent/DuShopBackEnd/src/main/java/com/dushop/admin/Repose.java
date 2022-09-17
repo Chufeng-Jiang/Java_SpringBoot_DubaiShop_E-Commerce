@@ -28,59 +28,20 @@ import org.springframework.ui.Model;
 @Service
 @Transactional
 public class UserService {
-    public static final int USERS_PER_PAGE = 4;
     @Autowired
     private UserRepository userRepo;
-
-    @Autowired
-    private RoleRepository roleRepo;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    public List<User> listAll() {
-        return (List<User>) userRepo.findAll(Sort.by("firstName").ascending());
-    }
-
-    public User getByEmail(String email) {
-        return userRepo.getUserByEmail(email);
-    }
-
-    /*
-     * @description:
-     * @author: Jiang Chufeng
-     * @date: 2022/7/14 11:34
-     * @param: pageNum
-     * @param: sortField: Sorting according to which column in "manage users" form of Control panel
-     * @param: sortDir: asc-up; dsc-down
-     * @param: keyword: search users by keywords
-     * @return: org.springframework.data.domain.Page<com.dushop.common.entity.User>
-     */
-    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
-        helper.listEntities(pageNum, USERS_PER_PAGE, userRepo);
-    }
-
-
-
-    public List<Role> listRoles() {
-        return (List<Role>) roleRepo.findAll();
-    }
-
     public User save(User user) {
-
         boolean isUpdatingUser = (user.getId() != null);
-
         if (isUpdatingUser) {
             User existingUser = userRepo.findById(user.getId()).get();
             if (user.getPassword().isEmpty()) {
                 user.setPassword(existingUser.getPassword());
-
             } else {
                 encodePassword(user);
-
             }
-
         } else {
             encodePassword(user);
         }
