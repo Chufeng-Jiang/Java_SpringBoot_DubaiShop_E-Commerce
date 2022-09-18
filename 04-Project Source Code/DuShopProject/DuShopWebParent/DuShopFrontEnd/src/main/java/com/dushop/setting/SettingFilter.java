@@ -26,10 +26,8 @@ import com.dushop.common.entity.setting.Setting;
 
 @Component
 public class SettingFilter implements Filter {
-
     @Autowired
     private SettingService service;
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -46,9 +44,9 @@ public class SettingFilter implements Filter {
         List<Setting> generalSettings = service.getGeneralSettings();
 
         generalSettings.forEach(setting -> {
-            System.out.println(setting);
+            //System.out.println(setting);
             request.setAttribute(setting.getKey(), setting.getValue());
-            System.out.println(setting.getKey() + " == > " + setting.getValue());
+            //System.out.println(setting.getKey() + " == > " + setting.getValue());
         });
 
         chain.doFilter(request, response);
