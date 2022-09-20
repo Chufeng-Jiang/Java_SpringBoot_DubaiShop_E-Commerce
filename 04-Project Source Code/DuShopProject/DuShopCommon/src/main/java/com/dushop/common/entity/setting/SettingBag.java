@@ -13,10 +13,20 @@ import java.util.List;
 public class SettingBag {
     private List<Setting> listSettings;
 
+    /*
+@Author: Code Java.
+“Spring Boot Tutorials Playlist” [online]
+Available at: https://youtu.be/zDc63OHY_v8
+*/
     public SettingBag(List<Setting> listSettings) {
         this.listSettings = listSettings;
     }
 
+    /*
+@Author: Code Java.
+“Spring Boot Tutorials Playlist” [online]
+Available at: https://youtu.be/zDc63OHY_v8
+*/
     public Setting get(String key) {
         int index = listSettings.indexOf(new Setting(key));
         if (index >= 0) {
@@ -25,6 +35,12 @@ public class SettingBag {
 
         return null;
     }
+
+    /*
+@Author: Code Java.
+“Spring Boot Tutorials Playlist” [online]
+Available at: https://youtu.be/zDc63OHY_v8
+*/
 
     public String getValue(String key) {
         Setting setting = get(key);
@@ -35,6 +51,11 @@ public class SettingBag {
         return null;
     }
 
+    /*
+@Author: Code Java.
+“Spring Boot Tutorials Playlist” [online]
+Available at: https://youtu.be/zDc63OHY_v8
+*/
     public void update(String key, String value) {
         Setting setting = get(key);
         if (setting != null && value != null) {
@@ -42,6 +63,11 @@ public class SettingBag {
         }
     }
 
+    /*
+    @Author: Code Java.
+    “Spring Boot Tutorials Playlist” [online]
+    Available at: https://youtu.be/zDc63OHY_v8
+    */
     public List<Setting> list() {
         return listSettings;
     }

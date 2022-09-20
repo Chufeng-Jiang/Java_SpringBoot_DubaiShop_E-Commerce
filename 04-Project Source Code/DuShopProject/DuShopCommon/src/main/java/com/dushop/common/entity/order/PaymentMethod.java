@@ -9,5 +9,7 @@ package com.dushop.common.entity.order;
  */
 
 public enum PaymentMethod {
+
+    /*self-finish*/
     COD, CREDIT_CARD, PAYPAL
 }

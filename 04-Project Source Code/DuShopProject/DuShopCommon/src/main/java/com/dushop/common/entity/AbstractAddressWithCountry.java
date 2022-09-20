@@ -14,18 +14,24 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class AbstractAddressWithCountry extends AbstractAddress {
+    /*self-finish*/
     @ManyToOne
     @JoinColumn(name = "country_id")
     protected Country country;
-
+    /*self-finish*/
     public Country getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
+    /*self-finish*/
+    public void setCountry(Country country){this.country = country;}
 
+
+    /*
+@Author: Self-code.
+“Ecommerce Spring Boot Project step-by-step using Spring Boot, Thymeleaf, Spring Security, Hibernate, Spring Data Jpa, Lombok.” [online]
+Available at: https://youtu.be/4ga5bcBPgzo
+*/
     @Override
     public String toString() {
         String address = firstName;

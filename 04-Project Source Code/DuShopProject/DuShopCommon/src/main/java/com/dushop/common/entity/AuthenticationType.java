@@ -9,6 +9,7 @@ package com.dushop.common.entity;
  *@Version: 1.0
  */
 
+/*self-finish*/
 public enum AuthenticationType {
     DATABASE, FACEBOOK, GOOGLE
 }

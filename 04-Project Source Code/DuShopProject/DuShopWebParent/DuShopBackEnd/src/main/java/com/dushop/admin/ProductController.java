@@ -36,6 +36,11 @@ import com.dushop.common.entity.product.Product;
 public class ProductController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
+    /*
+@Author: Code Java.
+“Spring Boot Tutorials Playlist” [online]
+Available at: https://youtu.be/zDc63OHY_v8
+*/
     private String defaultRedirectURL = "redirect:/products/page/1?sortField=name&sortDir=asc&categoryId=0";
 
     @Autowired private ProductService productService;
@@ -89,10 +94,10 @@ public class ProductController {
                               @AuthenticationPrincipal DuShopUserDetails loggedUser
     ) throws IOException {
 
-        if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Editor")) {
+        if (!loggedUser.hasRole("Admin")) {
             if (loggedUser.hasRole("Salesperson")) {
                 productService.saveProductPrice(product);
-                ra.addFlashAttribute("message", "The product has been saved successfully.");
+                ra.addFlashAttribute("message", "The product saved.");
                 return defaultRedirectURL;
             }
         }
@@ -108,7 +113,7 @@ public class ProductController {
 
         ProductSaveHelper.deleteExtraImagesWeredRemovedOnForm(product);
 
-        ra.addFlashAttribute("message", "The product has been saved successfully.");
+        ra.addFlashAttribute("message", "The product  saved.");
 
         return defaultRedirectURL;
     }

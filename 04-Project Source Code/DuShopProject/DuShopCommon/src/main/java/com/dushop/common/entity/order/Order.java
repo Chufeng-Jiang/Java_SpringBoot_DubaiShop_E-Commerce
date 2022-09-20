@@ -426,15 +426,7 @@ public class Order extends AbstractAddress {
      *    Author: Bhardwaj-Abh
      *    Availability: https://github.com/Bhardwaj-Abh/medi/blob/32f56a6712eec42f688d93b1de83de0efb96f702/MediCareCommon/src/main/java/com/medicare/common/entity/order/Order.java *
      ***************************************************************************************/
-    @Transient
-    public boolean isReturnRequested() {
-        return hasStatus(OrderStatus.RETURN_REQUESTED);
-    }
-    /***************************************************************************************
-     *    Title: mediCare
-     *    Author: Bhardwaj-Abh
-     *    Availability: https://github.com/Bhardwaj-Abh/medi/blob/32f56a6712eec42f688d93b1de83de0efb96f702/MediCareCommon/src/main/java/com/medicare/common/entity/order/Order.java *
-     ***************************************************************************************/
+
     public boolean hasStatus(OrderStatus status) {
         for (OrderTrack aTrack : orderTracks) {
             if (aTrack.getStatus().equals(status)) {

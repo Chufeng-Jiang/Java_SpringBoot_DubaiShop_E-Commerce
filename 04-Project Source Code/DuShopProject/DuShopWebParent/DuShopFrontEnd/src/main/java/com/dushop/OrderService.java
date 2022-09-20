@@ -122,7 +122,6 @@ public class OrderService {
         OrderTrack track = new OrderTrack();
         track.setOrder(order);
         track.setUpdatedTime(new Date());
-        track.setStatus(OrderStatus.RETURN_REQUESTED);
 
         String notes = "Reason: " + request.getReason();
         if (!"".equals(request.getNote())) {
@@ -132,7 +131,6 @@ public class OrderService {
         track.setNotes(notes);
 
         order.getOrderTracks().add(track);
-        order.setStatus(OrderStatus.RETURN_REQUESTED);
 
         repo.save(order);
     }
