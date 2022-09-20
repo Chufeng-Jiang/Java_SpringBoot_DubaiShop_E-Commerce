@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 
-import com.dushop.category.CategoryService;
 import com.dushop.common.entity.Category;
 
 @Controller

@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.dushop.address.AddressService;
+import com.dushop.AddressService;
 import com.dushop.common.entity.Address;
 import com.dushop.common.entity.ShippingRate;
-import com.dushop.shipping.ShippingRateService;
+import com.dushop.ShippingRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.dushop.Utility;
 import com.dushop.common.entity.CartItem;
 import com.dushop.common.entity.Customer;
-import com.dushop.common.exception.CustomerNotFoundException;
-import com.dushop.customer.CustomerService;
+import com.dushop.CustomerService;
 
 /*
  *@BelongsProject: DuShopProject

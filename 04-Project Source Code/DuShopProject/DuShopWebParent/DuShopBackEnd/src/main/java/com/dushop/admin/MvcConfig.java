@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 
-import com.dushop.admin.paging.PagingAndSortingArgumentResolver;
 import java.util.List;
 
 /*

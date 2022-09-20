@@ -8,13 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.dushop.admin.paging.PagingAndSortingHelper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.dushop.admin.PagingAndSortingHelper;
 import com.dushop.common.entity.Role;
 import com.dushop.common.entity.User;
-import org.springframework.ui.Model;
 
 /*
  *@BelongsProject: DuShopProject

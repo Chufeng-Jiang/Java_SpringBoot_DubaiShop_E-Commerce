@@ -11,8 +11,6 @@ import com.dushop.admin.user.export.UserCsvExporter;
 import com.dushop.admin.user.export.UserExcelExporter;
 import com.dushop.admin.user.export.UserPdfExporter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -24,8 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dushop.common.entity.Role;
 import com.dushop.common.entity.User;
-import com.dushop.admin.paging.PagingAndSortingHelper;
-import com.dushop.admin.paging.PagingAndSortingParam;
+import com.dushop.admin.PagingAndSortingHelper;
+import com.dushop.admin.PagingAndSortingParam;
 
 /*
  *@BelongsProject: DuShopProject

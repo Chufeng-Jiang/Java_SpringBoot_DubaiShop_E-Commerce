@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.dushop.common.entity.Customer;
-import com.dushop.customer.CustomerRepository;
+import com.dushop.CustomerRepository;
 
 /*
  *@BelongsProject: DuShopProject

@@ -6,7 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import com.dushop.common.entity.CartItem;
 import com.dushop.common.entity.Customer;
-import com.dushop.product.ProductRepository;
+import com.dushop.ProductRepository;
 import com.dushop.common.entity.product.Product;
 
 /*

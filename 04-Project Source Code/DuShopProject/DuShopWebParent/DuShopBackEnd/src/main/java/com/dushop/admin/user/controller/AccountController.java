@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dushop.admin.FileUploadUtil;
-import com.dushop.admin.security.DuShopUserDetails;
+import com.dushop.admin.DuShopUserDetails;
 import com.dushop.common.entity.User;
 
 /*

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.dushop.common.entity.AuthenticationType;
 import com.dushop.common.entity.Customer;
-import com.dushop.customer.CustomerService;
+import com.dushop.CustomerService;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.security

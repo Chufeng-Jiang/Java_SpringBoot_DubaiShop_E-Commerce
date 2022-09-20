@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
  *@BelongsPackage: com.dushop.common.entity
  *@Author: Jiang Chufeng
  *@CreateTime: 2022-08-27  16:44
- *@Description: TODO
+ *@Description: Self-finished
  *@Version: 1.0
  */
 
@@ -18,7 +18,7 @@ public enum OrderStatus {
     NEW {
         @Override
         public String defaultDescription() {
-            return "Order was placed by the customer";
+            return "Order placed";
         }
 
     },
@@ -26,7 +26,7 @@ public enum OrderStatus {
     CANCELLED {
         @Override
         public String defaultDescription() {
-            return "Order was rejected";
+            return "Order rejected";
         }
     },
 
@@ -37,40 +37,28 @@ public enum OrderStatus {
         }
     },
 
-    PACKAGED {
-        @Override
-        public String defaultDescription() {
-            return "Products were packaged";
-        }
-    },
 
     PICKED {
         @Override
         public String defaultDescription() {
-            return "Shipper picked the package";
+            return "Shipper picked";
         }
     },
 
     SHIPPING {
         @Override
         public String defaultDescription() {
-            return "Shipper is delivering the package";
+            return "Shipper delivering";
         }
     },
 
     DELIVERED {
         @Override
         public String defaultDescription() {
-            return "Customer received products";
+            return "Customer received";
         }
     },
 
-    RETURN_REQUESTED {
-        @Override
-        public String defaultDescription() {
-            return "Customer sent request to return purchase";
-        }
-    },
     RETURNED {
         @Override
         public String defaultDescription() {
@@ -88,7 +76,7 @@ public enum OrderStatus {
     REFUNDED {
         @Override
         public String defaultDescription() {
-            return "Customer has been refunded";
+            return "Customer refunded";
         }
     };
 

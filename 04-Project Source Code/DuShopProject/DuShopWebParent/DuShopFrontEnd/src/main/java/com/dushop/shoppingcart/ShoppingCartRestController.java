@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import com.dushop.Utility;
 import com.dushop.common.entity.Customer;
 import com.dushop.common.exception.CustomerNotFoundException;
-import com.dushop.customer.CustomerService;
+import com.dushop.CustomerService;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.shoppingcart
