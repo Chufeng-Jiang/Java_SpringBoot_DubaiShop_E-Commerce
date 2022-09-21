@@ -17,18 +17,27 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Controller
 public class MainController {
 
+	/*****************************
+	 @Author: Code Java.
+	 “Spring Boot Tutorials Playlist” [online]
+	 Available at: https://youtu.be/zDc63OHY_v8
+	 ****************************/
 	@GetMapping("")
 	public String viewHomePage() {
 		return "index";
 	}
 
+	/*****************************
+	 @Author: Code Java.
+	 “Spring Boot Tutorials Playlist” [online]
+	 Available at: https://youtu.be/zDc63OHY_v8
+	 ****************************/
 	@GetMapping("/login")
 	public String viewLoginPage() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 			return "login";
 		}
-
 		return "redirect:/";
 	}
 }

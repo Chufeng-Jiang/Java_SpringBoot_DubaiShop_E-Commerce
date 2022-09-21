@@ -28,30 +28,29 @@ public class ShippingRateController {
 
     @Autowired private ShippingRateService service;
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/shipping_rates")
     public String listFirstPage() {
         return defaultRedirectURL;
     }
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/shipping_rates/page/{pageNum}")
-    public String listByPage(@PagingAndSortingParam(listName = "shippingRates",
-            moduleURL = "/shipping_rates") PagingAndSortingHelper helper,
-                             @PathVariable(name = "pageNum") int pageNum) {
-        service.listByPage(pageNum, helper);
+    public String listByPage(@PagingAndSortingParam(listName = "shippingRates", moduleURL = "/shipping_rates") PagingAndSortingHelper helper, @PathVariable(name = "pageNum") int pageNum) {service.listByPage(pageNum, helper);
         return "shipping_rates/shipping_rates";
     }
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/shipping_rates/new")
     public String newRate(Model model) {
         List<Country> listCountries = service.listAllCountries();
-
         model.addAttribute("rate", new ShippingRate());
         model.addAttribute("listCountries", listCountries);
         model.addAttribute("pageTitle", "New Rate");
-
         return "shipping_rates/shipping_rate_form";
     }
 
+    /*self-code, but adapted from user module*/
     @PostMapping("/shipping_rates/save")
     public String saveRate(ShippingRate rate, RedirectAttributes ra) {
         try {
@@ -63,17 +62,16 @@ public class ShippingRateController {
         return defaultRedirectURL;
     }
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/shipping_rates/edit/{id}")
     public String editRate(@PathVariable(name = "id") Integer id,
                            Model model, RedirectAttributes ra) {
         try {
             ShippingRate rate = service.get(id);
             List<Country> listCountries = service.listAllCountries();
-
             model.addAttribute("listCountries", listCountries);
             model.addAttribute("rate", rate);
             model.addAttribute("pageTitle", "Edit Rate (ID: " + id + ")");
-
             return "shipping_rates/shipping_rate_form";
         } catch (ShippingRateNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
@@ -81,10 +79,9 @@ public class ShippingRateController {
         }
     }
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/shipping_rates/cod/{id}/enabled/{supported}")
-    public String updateCODSupport(@PathVariable(name = "id") Integer id,
-                                   @PathVariable(name = "supported") Boolean supported,
-                                   Model model, RedirectAttributes ra) {
+    public String updateCODSupport(@PathVariable(name = "id") Integer id, @PathVariable(name = "supported") Boolean supported, Model model, RedirectAttributes ra) {
         try {
             service.updateCODSupport(id, supported);
             ra.addFlashAttribute("message", "COD support for shipping rate ID " + id + " has been updated.");
@@ -94,6 +91,7 @@ public class ShippingRateController {
         return defaultRedirectURL;
     }
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/shipping_rates/delete/{id}")
     public String deleteRate(@PathVariable(name = "id") Integer id,
                              Model model, RedirectAttributes ra) {

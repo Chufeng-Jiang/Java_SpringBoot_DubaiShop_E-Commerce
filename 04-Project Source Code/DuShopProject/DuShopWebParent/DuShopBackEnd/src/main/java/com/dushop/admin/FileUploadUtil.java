@@ -22,6 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtil.class);
+
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
 
@@ -37,6 +43,11 @@ public class FileUploadUtil {
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public static void cleanDir(String dir) {
         Path dirPath = Paths.get(dir);
 
@@ -57,6 +68,11 @@ public class FileUploadUtil {
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public static void removeDir(String dir) {
         cleanDir(dir);
 

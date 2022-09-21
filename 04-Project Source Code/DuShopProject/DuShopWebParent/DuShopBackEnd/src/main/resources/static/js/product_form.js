@@ -1,4 +1,4 @@
-/*
+
 var extraImagesCount = 0;
 dropdownBrands = $("#brand");
 dropdownCategories = $("#category");
@@ -105,4 +105,4 @@ function checkUnique(form) {
     });
 
     return false;
-}*/
+}

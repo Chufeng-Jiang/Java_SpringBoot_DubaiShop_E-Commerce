@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.dushop.admin.setting.country.CountryRepository;
 import com.dushop.common.entity.Country;
 import com.dushop.common.entity.Customer;
-import com.dushop.common.exception.CustomerNotFoundException;
+import com.dushop.common.entity.CustomerNotFoundException;
 
 /*
  *@BelongsProject: DuShopProject

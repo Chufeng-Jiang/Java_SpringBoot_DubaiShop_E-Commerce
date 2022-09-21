@@ -15,8 +15,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import com.dushop.security.CustomerUserDetails;
-import com.dushop.security.oauth.CustomerOAuth2User;
+
 import java.io.UnsupportedEncodingException;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -39,6 +38,7 @@ public class CustomerController {
     @Autowired private CustomerService customerService;
     @Autowired private SettingService settingService;
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         List<Country> listCountries = customerService.listAllCountries();
@@ -49,7 +49,7 @@ public class CustomerController {
 
         return "register/register_form";
     }
-
+    /*self-code, but adapted from user module*/
     @PostMapping("/create_customer")
     public String createCustomer(Customer customer, Model model,
                                  HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
@@ -60,7 +60,11 @@ public class CustomerController {
 
         return "register/register_success";
     }
-
+    /************************************
+     @Author:  Learn Programming with Real Apps
+     “Completed E-Commerce with Spring MVC and Spring Data JPA Playlist” [online]
+     Available at: https://youtu.be/hwSB50DqMkc
+     ************************************/
     private void sendVerificationEmail(HttpServletRequest request, Customer customer)
             throws UnsupportedEncodingException, MessagingException {
         EmailSettingBag emailSettings = settingService.getEmailSettings();
@@ -90,7 +94,11 @@ public class CustomerController {
         System.out.println("to Address: " + toAddress);
         System.out.println("Verify URL: " + verifyURL);
     }
-
+    /************************************
+     @Author:  Learn Programming with Real Apps
+     “Completed E-Commerce with Spring MVC and Spring Data JPA Playlist” [online]
+     Available at: https://youtu.be/hwSB50DqMkc
+     ************************************/
     @GetMapping("/verify")
     public String verifyAccount(String code, Model model) {
         boolean verified = customerService.verify(code);
@@ -98,6 +106,7 @@ public class CustomerController {
         return "register/" + (verified ? "verify_success" : "verify_fail");
     }
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/account_details")
     public String viewAccountDetails(Model model, HttpServletRequest request) {
         String email = Utility.getEmailOfAuthenticatedCustomer(request);
@@ -109,7 +118,7 @@ public class CustomerController {
 
         return "customer/account_form";
     }
-
+    /*self-code, but adapted from user module*/
     @PostMapping("/update_account_details")
     public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra,
                                        HttpServletRequest request) {
@@ -132,6 +141,11 @@ public class CustomerController {
         return redirectURL;
     }
 
+    /************************************
+     @Author:  Learn Programming with Real Apps
+     “Completed E-Commerce with Spring MVC and Spring Data JPA Playlist” [online]
+     Available at: https://youtu.be/hwSB50DqMkc
+     ************************************/
     private void updateNameForAuthenticatedCustomer(Customer customer, HttpServletRequest request) {
         Object principal = request.getUserPrincipal();
 
@@ -150,6 +164,11 @@ public class CustomerController {
         }
     }
 
+    /************************************
+     @Author:  Learn Programming with Real Apps
+     “Completed E-Commerce with Spring MVC and Spring Data JPA Playlist” [online]
+     Available at: https://youtu.be/hwSB50DqMkc
+     ************************************/
     private CustomerUserDetails getCustomerUserDetailsObject(Object principal) {
         CustomerUserDetails userDetails = null;
         if (principal instanceof UsernamePasswordAuthenticationToken) {

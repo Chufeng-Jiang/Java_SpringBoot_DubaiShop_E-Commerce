@@ -23,14 +23,22 @@ import com.dushop.common.entity.Category;
 
 @RestController
 public class BrandRestController {
+
+    /*self-finish*/
     @Autowired
     private BrandService service;
 
+    /*self-finish*/
     @PostMapping("/brands/check_unique")
     public String checkUnique(Integer id, String name) {
         return service.checkUnique(id, name);
     }
 
+    /***************************************************************************************
+     *    Title: mediCare
+     *    Author: Bhardwaj-Abh
+     *    Availability: https://github.com/Bhardwaj-Abh/medi/blob/32f56a6712eec42f688d93b1de83de0efb96f702/MediCareCommon/src/main/java/com/medicare
+     ***************************************************************************************/
     @GetMapping("/brands/{id}/categories")
     public List<CategoryDTO> listCategoriesByBrand(@PathVariable(name = "id") Integer brandId) throws BrandNotFoundRestException {
         List<CategoryDTO> listCategories = new ArrayList<>();

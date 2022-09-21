@@ -30,11 +30,20 @@ import com.dushop.common.entity.User;
 public class UserExcelExporter extends AbstractExporter {
     private XSSFWorkbook exl_Workbook;
     private XSSFSheet sheet;
-
+/*
+@Author:Rajeev Singh
+@article: How to Write to an Excel file in Java using Apache POI
+@Available at:https://www.callicoder.com/java-write-excel-file-apache-poi/
+ */
     public UserExcelExporter() {
         exl_Workbook = new XSSFWorkbook();
     }
 
+    /*
+@Author:Rajeev Singh
+@article: How to Write to an Excel file in Java using Apache POI
+@Available at:https://www.callicoder.com/java-write-excel-file-apache-poi/
+ */
     private void writeHeaderLine() {
         sheet = exl_Workbook.createSheet("Users");
         XSSFRow row = sheet.createRow(0);
@@ -64,6 +73,11 @@ public class UserExcelExporter extends AbstractExporter {
      * @param: style - cellStyle by default
      * @return: void
      */
+    /*
+@Author:Rajeev Singh
+@article: How to Write to an Excel file in Java using Apache POI
+@Available at:https://www.callicoder.com/java-write-excel-file-apache-poi/
+ */
     private void createCell(XSSFRow row, int columnIndex, Object value, CellStyle style) {
         XSSFCell cell = row.createCell(columnIndex);
         sheet.autoSizeColumn(columnIndex);
@@ -79,6 +93,11 @@ public class UserExcelExporter extends AbstractExporter {
         cell.setCellStyle(style);
     }
 
+    /*
+@Author:Rajeev Singh
+@article: How to Write to an Excel file in Java using Apache POI
+@Available at:https://www.callicoder.com/java-write-excel-file-apache-poi/
+ */
     public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
         super.setResponseHeader(response, "application/octet-stream", ".xlsx", "users_");
 
@@ -93,6 +112,11 @@ public class UserExcelExporter extends AbstractExporter {
 
     }
 
+    /*
+@Author:Rajeev Singh
+@article: How to Write to an Excel file in Java using Apache POI
+@Available at:https://www.callicoder.com/java-write-excel-file-apache-poi/
+ */
     private void writeDataLines(List<User> listUsers) {
         int rowIndex = 1;
 

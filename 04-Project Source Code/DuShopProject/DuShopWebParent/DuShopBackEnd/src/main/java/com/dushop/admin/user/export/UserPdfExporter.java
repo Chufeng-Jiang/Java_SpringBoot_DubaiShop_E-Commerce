@@ -29,7 +29,11 @@ import com.dushop.common.entity.User;
  */
 
 public class UserPdfExporter extends AbstractExporter {
-
+    /**Adopted from
+     @title:How to use getInstance method in com.itextpdf.text.pdf.PdfWriter
+     @Author:tabnine.com
+     @Reference: https://www.tabnine.com/code/java/methods/com.itextpdf.text.pdf.PdfWriter/getInstance
+     **/
     public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
         super.setResponseHeader(response, "application/pdf", ".pdf", "users_");
 
@@ -61,6 +65,12 @@ public class UserPdfExporter extends AbstractExporter {
 
     }
 
+    /**Adopted from
+     @title:How to use getInstance method in com.itextpdf.text.pdf.PdfWriter
+     @Author:tabnine.com
+     @Reference: https://www.tabnine.com/code/java/methods/com.itextpdf.text.pdf.PdfWriter/getInstance
+     **/
+
     private void writeTableData(PdfPTable table, List<User> listUsers) {
         for (User user : listUsers) {
             table.addCell(String.valueOf(user.getId()));
@@ -71,6 +81,12 @@ public class UserPdfExporter extends AbstractExporter {
             table.addCell(String.valueOf(user.isEnabled()));
         }
     }
+    /**
+     Adopted from
+     @title:How to use getInstance method in com.itextpdf.text.pdf.PdfWriter
+     @Author:tabnine.com
+     @Reference: https://www.tabnine.com/code/java/methods/com.itextpdf.text.pdf.PdfWriter/getInstance
+     **/
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();

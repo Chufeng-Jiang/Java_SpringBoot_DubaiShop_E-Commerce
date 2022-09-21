@@ -32,20 +32,23 @@ public class AccountController {
     @Autowired
     private UserService service;
 
+    /*self-finish*/
     @GetMapping("/account")
-    public String viewDetails(@AuthenticationPrincipal DuShopUserDetails loginUser,
-                              Model model) {
+    public String viewDetails(@AuthenticationPrincipal DuShopUserDetails loginUser, Model model) {
         String email = loginUser.getUsername();
         User user = service.getByEmail(email);
         model.addAttribute("user", user);
-
         return "users/account_form";
-
     }
 
+
+/*
+@Author: Self-code.
+“Ecommerce Spring Boot Project step-by-step using Spring Boot, Thymeleaf, Spring Security, Hibernate, Spring Data Jpa, Lombok.” [online]
+Available at: https://youtu.be/4ga5bcBPgzo
+*/
     @PostMapping("/account/update")
-    public String saveDetails(User user, RedirectAttributes redirectAttributes,
-                              @AuthenticationPrincipal DuShopUserDetails loginUser,
+    public String saveDetails(User user, RedirectAttributes redirectAttributes, @AuthenticationPrincipal DuShopUserDetails loginUser,
                               @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         if (!multipartFile.isEmpty()) {

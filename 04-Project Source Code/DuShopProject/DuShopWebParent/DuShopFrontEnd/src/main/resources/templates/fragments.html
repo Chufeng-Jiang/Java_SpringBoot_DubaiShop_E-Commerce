@@ -39,6 +39,11 @@
         <span>No [[${entityName}]] found</span>
     </div>
 
+
+<!--    @Author: Code Java.-->
+<!--    “Spring Boot Tutorials Playlist” [online]-->
+<!--    Available at: https://youtu.be/zDc63OHY_v8-->
+
     <div th:if="${totalPages > 1}">
         <nav>
             <ul class="pagination justify-content-center flex-wrap">
@@ -105,14 +110,26 @@
     </div>
 </div>
 
+
+<!--                @Author: Jay Gajera-->
+<!--                “Spring E commerce project | With Code| Run step by step execution” [online]-->
+<!--                Available at: https://youtu.be/c6WWdINWSlI-->
 <div th:fragment="format_currency(amount)" th:remove="tag">
     <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
 </div>
 
+
+<!--                @Author: Jay Gajera-->
+<!--                “Spring E commerce project | With Code| Run step by step execution” [online]-->
+<!--                Available at: https://youtu.be/c6WWdINWSlI-->
 <div th:fragment="format_time(dateTime)" th:remove="tag">
     <span th:text="${#dates.format(dateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 </div>
 
+
+<!--                @Author: Jay Gajera-->
+<!--                “Spring E commerce project | With Code| Run step by step execution” [online]-->
+<!--                Available at: https://youtu.be/c6WWdINWSlI-->
 <div th:fragment="currency_input(amount)" th:remove="tag">
     <input type="text" readonly class="form-control" th:value="${(CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : '') + #numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE) + (CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : '')}">
 </div>

@@ -12,7 +12,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import com.dushop.setting.CurrencySettingBag;
 import com.dushop.setting.EmailSettingBag;
-import com.dushop.security.oauth.CustomerOAuth2User;
 
 /*
  *@BelongsProject: DuShopProject
@@ -24,12 +23,22 @@ import com.dushop.security.oauth.CustomerOAuth2User;
  */
 
 public class Utility {
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public static String getSiteURL(HttpServletRequest request) {
         String siteURL = request.getRequestURL().toString();
 
         return siteURL.replace(request.getServletPath(), "");
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public static JavaMailSenderImpl prepareMailSender(EmailSettingBag settings) {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
@@ -47,6 +56,11 @@ public class Utility {
         return mailSender;
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public static String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
         Object principal = request.getUserPrincipal();
         if (principal == null) return null;
@@ -65,6 +79,11 @@ public class Utility {
         return customerEmail;
     }
 
+    /************************************
+     @Author: Jay Gajera
+     “Spring E commerce project | With Code| Run step by step execution” [online]
+     Available at: https://youtu.be/c6WWdINWSlI
+     ************************************/
     public static String formatCurrency(float amount, CurrencySettingBag settings) {
         String symbol = settings.getSymbol();
         String symbolPosition = settings.getSymbolPosition();

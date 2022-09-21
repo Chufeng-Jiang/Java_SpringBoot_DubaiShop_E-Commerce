@@ -34,11 +34,11 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    /*self-finish*/
     public List<User> listAll() {
         return (List<User>) userRepo.findAll(Sort.by("firstName").ascending());
     }
-
+    /*self-finish*/
     public User getByEmail(String email) {
         return userRepo.getUserByEmail(email);
     }
@@ -53,16 +53,27 @@ public class UserService {
      * @param: keyword: search users by keywords
      * @return: org.springframework.data.domain.Page<com.dushop.common.entity.User>
      */
+
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public void listByPage(int pageNum, PagingAndSortingHelper helper) {
         helper.listEntities(pageNum, USERS_PER_PAGE, userRepo);
     }
 
 
-
+    /*self-finish*/
     public List<Role> listRoles() {
         return (List<Role>) roleRepo.findAll();
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public User save(User user) {
 
         boolean isUpdatingUser = (user.getId() != null);
@@ -71,29 +82,36 @@ public class UserService {
             User existingUser = userRepo.findById(user.getId()).get();
             if (user.getPassword().isEmpty()) {
                 user.setPassword(existingUser.getPassword());
-
             } else {
                 encodePassword(user);
-
             }
-
         } else {
             encodePassword(user);
         }
         return userRepo.save(user);
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private void encodePassword(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public boolean isEmailUnique(Integer id, String email) {
         User userByEmail = userRepo.getUserByEmail(email);
 
         if (userByEmail == null) return true;
 
-        boolean isCreatingNew = (id == null);
+        boolean isCreatingNew = (id == null);//
 
         if (isCreatingNew) {
             if (userByEmail != null) return false;
@@ -102,30 +120,41 @@ public class UserService {
                 return false;
             }
         }
-
         return true;
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public User get(Integer id) throws UserNotFoundException {
         try {
             return userRepo.findById(id).get();
         } catch (NoSuchElementException ex) {
-            throw new UserNotFoundException("Could not find any user with ID " + id);
+            throw new UserNotFoundException("Could not find  ID " + id);
         }
     }
 
+    /*self-finish*/
     public void delete(Integer id) throws UserNotFoundException {
         Long countById = userRepo.countById(id);
         if (countById == null || countById == 0) {
-            throw new UserNotFoundException("Could not find any user with ID " + id);
+            throw new UserNotFoundException("Could not find ID " + id);
         }
         userRepo.deleteById(id);
     }
 
+    /*self-finish*/
     public void updateUserEnabledStatus(Integer id, boolean enabled) {
         userRepo.updateEnabledStatus(id, enabled);
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public User updateAccount(User userInEditForm) {
         User userInDatabase = userRepo.findById(userInEditForm.getId()).get();
 

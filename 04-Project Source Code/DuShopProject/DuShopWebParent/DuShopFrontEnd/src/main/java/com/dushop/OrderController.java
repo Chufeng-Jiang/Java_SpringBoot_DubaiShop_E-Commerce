@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.dushop.common.entity.Customer;
-import com.dushop.common.entity.order.Order;
+import com.dushop.common.entity.Order;
 
 /*
  *@BelongsProject: DuShopProject
@@ -28,15 +28,15 @@ public class OrderController {
     @Autowired private OrderService orderService;
     @Autowired private CustomerService customerService;
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/orders")
     public String listFirstPage(Model model, HttpServletRequest request) {
         return listOrdersByPage(model, request, 1, "orderTime", "desc", null);
     }
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/orders/page/{pageNum}")
-    public String listOrdersByPage(Model model, HttpServletRequest request,
-                                   @PathVariable(name = "pageNum") int pageNum,
-                                   String sortField, String sortDir, String orderKeyword
+    public String listOrdersByPage(Model model, HttpServletRequest request, @PathVariable(name = "pageNum") int pageNum, String sortField, String sortDir, String orderKeyword
     ) {
         Customer customer = getAuthenticatedCustomer(request);
 
@@ -66,11 +66,13 @@ public class OrderController {
         return "orders/orders_customer";
     }
 
+    /*self-code, but adapted from customer module*/
     private Customer getAuthenticatedCustomer(HttpServletRequest request) {
         String email = Utility.getEmailOfAuthenticatedCustomer(request);
         return customerService.getCustomerByEmail(email);
     }
 
+    /*self-code, but adapted from user module*/
     @GetMapping("/orders/detail/{id}")
     public String viewOrderDetails(Model model,
                                    @PathVariable(name = "id") Integer id, HttpServletRequest request) {

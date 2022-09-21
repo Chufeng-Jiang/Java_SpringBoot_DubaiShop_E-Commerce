@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 import com.dushop.common.entity.Category;
-import com.dushop.common.exception.CategoryNotFoundException;
+import com.dushop.common.entity.CategoryNotFoundException;
 
 /*
  *@BelongsProject: DuShopProject
@@ -43,8 +43,8 @@ public class CategoryService {
      * @param:
      * @return: java.util.List<com.dushop.common.entity.Category>
      */
-    public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir,
-                                     String keyword) {
+    /*self-code, but adapted from brand module*/
+    public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir, String keyword) {
         Sort sort = Sort.by("name");
 
         if (sortDir.equals("asc")) {
@@ -64,7 +64,11 @@ public class CategoryService {
         }
 
         List<Category> rootCategories = pageCategories.getContent();
-
+        /*****************************
+         @Author: Code Java.
+         “Spring Boot Tutorials Playlist” [online]
+         Available at: https://youtu.be/zDc63OHY_v8
+         ****************************/
         pageInfo.setTotalElements(pageCategories.getTotalElements());
         pageInfo.setTotalPages(pageCategories.getTotalPages());
 
@@ -81,6 +85,11 @@ public class CategoryService {
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private List<Category> listHierarchicalCategories(List<Category> rootCategories, String sortDir) {
         List<Category> hierarchicalCategories = new ArrayList<>();
 
@@ -99,7 +108,11 @@ public class CategoryService {
 
         return hierarchicalCategories;
     }
-
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private void listSubHierarchicalCategories(List<Category> hierarchicalCategories,
                                                Category parent, int subLevel, String sortDir) {
         Set<Category> children = sortSubCategories(parent.getChildren(), sortDir);
@@ -126,6 +139,7 @@ public class CategoryService {
      * @param: category
      * @return: com.dushop.common.entity.Category
      */
+    /*self-code, but adapted from brand module*/
     public Category save(Category category) {
         Category parent = category.getParent();
         if (parent != null) {
@@ -143,6 +157,11 @@ public class CategoryService {
      * @param:
      * @return: java.util.List<com.dushop.common.entity.Category>
      */
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public List<Category> listCategoriesUsedInForm() {
         List<Category> categoriesUsedInForm = new ArrayList<>();
 
@@ -164,6 +183,11 @@ public class CategoryService {
         return categoriesUsedInForm;
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private void listSubCategoriesUsedInForm(List<Category> categoriesUsedInForm,
                                              Category parent, int subLevel) {
         int newSubLevel = subLevel + 1;
@@ -182,6 +206,8 @@ public class CategoryService {
         }
     }
 
+
+    /*self-code*/
     public Category get(Integer id) throws CategoryNotFoundException {
         try {
             return repo.findById(id).get();
@@ -189,7 +215,7 @@ public class CategoryService {
             throw new CategoryNotFoundException("Could not find any category with ID " + id);
         }
     }
-
+    /*self-code*/
     public String checkUnique(Integer id, String name, String alias) {
         boolean isCreatingNew = (id == null || id == 0);
 
@@ -213,16 +239,24 @@ public class CategoryService {
             if (categoryByAlias != null && categoryByAlias.getId() != id) {
                 return "DuplicateAlias";
             }
-
         }
-
         return "OK";
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private SortedSet<Category> sortSubCategories(Set<Category> children) {
         return sortSubCategories(children, "asc");
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private SortedSet<Category> sortSubCategories(Set<Category> children, String sortDir) {
         SortedSet<Category> sortedChildren = new TreeSet<>(new Comparator<Category>() {
             @Override
@@ -240,17 +274,17 @@ public class CategoryService {
         return sortedChildren;
     }
 
+    /*self-code*/
     public void updateCategoryEnabledStatus(Integer id, boolean enabled) {
         repo.updateEnabledStatus(id, enabled);
     }
 
+    /*self-code*/
     public void delete(Integer id) throws CategoryNotFoundException {
         Long countById = repo.countById(id);
         if (countById == null || countById == 0) {
             throw new CategoryNotFoundException("Could not find any category with ID " + id);
         }
-
         repo.deleteById(id);
     }
-
 }

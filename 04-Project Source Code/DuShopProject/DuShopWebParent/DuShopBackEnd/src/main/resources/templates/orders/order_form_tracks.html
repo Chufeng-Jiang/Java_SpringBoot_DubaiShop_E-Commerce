@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="content" th:remove="tag">
+<div th:fragment="content">
   <div id="trackList">
     <th:block th:each="track, status : ${order.orderTracks}">
       <div class="row border rounded p-1" th:id="'rowTrack' + ${status.count}"

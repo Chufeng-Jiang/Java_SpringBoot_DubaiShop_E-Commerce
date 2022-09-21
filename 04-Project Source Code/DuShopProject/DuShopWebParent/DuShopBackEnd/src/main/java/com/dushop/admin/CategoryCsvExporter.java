@@ -23,6 +23,12 @@ import org.supercsv.prefs.CsvPreference;
  */
 
 public class CategoryCsvExporter extends AbstractExporter {
+
+    /*
+    @Title: Spring MVC with CSV File Download Example
+    @Author: Nam Ha Minh
+    Available at:https://www.codejava.net/frameworks/spring/spring-mvc-with-csv-file-download-example
+     */
     public void export(List<Category> listCategories, HttpServletResponse response)
             throws IOException {
         super.setResponseHeader(response, "text/csv", ".csv", "categories_");

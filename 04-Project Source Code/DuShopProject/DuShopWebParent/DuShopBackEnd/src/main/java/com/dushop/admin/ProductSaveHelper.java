@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dushop.common.entity.product.Product;
-import com.dushop.common.entity.product.ProductImage;
+import com.dushop.common.entity.Product;
+import com.dushop.common.entity.ProductImage;
 
 /*
  *@BelongsProject: DuShopProject
@@ -27,6 +27,11 @@ import com.dushop.common.entity.product.ProductImage;
 public class ProductSaveHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductSaveHelper.class);
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     static void deleteExtraImagesWeredRemovedOnForm(Product product) {
         String extraImageDir = "../product-images/" + product.getId() + "/extras";
         Path dirPath = Paths.get(extraImageDir);
@@ -51,8 +56,12 @@ public class ProductSaveHelper {
         }
     }
 
-    static void setExistingExtraImageNames(String[] imageIDs, String[] imageNames,
-                                           Product product) {
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
+    static void setExistingExtraImageNames(String[] imageIDs, String[] imageNames, Product product) {
         if (imageIDs == null || imageIDs.length == 0) return;
 
         Set<ProductImage> images = new HashSet<>();
@@ -60,14 +69,16 @@ public class ProductSaveHelper {
         for (int count = 0; count < imageIDs.length; count++) {
             Integer id = Integer.parseInt(imageIDs[count]);
             String name = imageNames[count];
-
             images.add(new ProductImage(id, name, product));
         }
-
         product.setImages(images);
-
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     static void setProductDetails(String[] detailIDs, String[] detailNames,
                                   String[] detailValues, Product product) {
         if (detailNames == null || detailNames.length == 0) return;
@@ -85,19 +96,21 @@ public class ProductSaveHelper {
         }
     }
 
-    static void saveUploadedImages(MultipartFile mainImageMultipart,
-                                   MultipartFile[] extraImageMultiparts, Product savedProduct) throws IOException {
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
+    static void saveUploadedImages(MultipartFile mainImageMultipart, MultipartFile[] extraImageMultiparts, Product savedProduct) throws IOException {
         if (!mainImageMultipart.isEmpty()) {
             String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
             String uploadDir = "../product-images/" + savedProduct.getId();
-
             FileUploadUtil.cleanDir(uploadDir);
             FileUploadUtil.saveFile(uploadDir, fileName, mainImageMultipart);
         }
 
         if (extraImageMultiparts.length > 0) {
             String uploadDir = "../product-images/" + savedProduct.getId() + "/extras";
-
             for (MultipartFile multipartFile : extraImageMultiparts) {
                 if (multipartFile.isEmpty()) continue;
 
@@ -108,6 +121,11 @@ public class ProductSaveHelper {
 
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     static void setNewExtraImageNames(MultipartFile[] extraImageMultiparts, Product product) {
         if (extraImageMultiparts.length > 0) {
             for (MultipartFile multipartFile : extraImageMultiparts) {
@@ -122,6 +140,11 @@ public class ProductSaveHelper {
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     static void setMainImageName(MultipartFile mainImageMultipart, Product product) {
         if (!mainImageMultipart.isEmpty()) {
             String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());

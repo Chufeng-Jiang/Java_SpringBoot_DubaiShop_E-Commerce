@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.dushop.common.entity.product.Product;
+import com.dushop.common.entity.Product;
 import com.dushop.admin.setting.country.CountryRepository;
 import com.dushop.common.entity.Country;
 import com.dushop.common.entity.ShippingRate;
@@ -38,6 +38,11 @@ public class ShippingRateService {
         return countryRepo.findAllByOrderByNameAsc();
     }
 
+    /************************************
+     @Author:  The Sheryians Coding School
+     ““E-Commerce Project in Spring Boot & Thymeleaf Playlist”[online]
+     Available at: https://youtu.be/z-9lNgN2QV4
+     ************************************/
     public void save(ShippingRate rateInForm) throws ShippingRateAlreadyExistsException {
         ShippingRate rateInDB = shipRepo.findByCountryAndState(
                 rateInForm.getCountry().getId(), rateInForm.getState());
@@ -51,6 +56,8 @@ public class ShippingRateService {
         shipRepo.save(rateInForm);
     }
 
+
+    /*self-code*/
     public ShippingRate get(Integer id) throws ShippingRateNotFoundException {
         try {
             return shipRepo.findById(id).get();
@@ -59,35 +66,38 @@ public class ShippingRateService {
         }
     }
 
+    /*self-code*/
     public void updateCODSupport(Integer id, boolean codSupported) throws ShippingRateNotFoundException {
         Long count = shipRepo.countById(id);
         if (count == null || count == 0) {
             throw new ShippingRateNotFoundException("Could not find shipping rate with ID " + id);
         }
-
         shipRepo.updateCODSupport(id, codSupported);
     }
 
+
+    /*self-code*/
     public void delete(Integer id) throws ShippingRateNotFoundException {
         Long count = shipRepo.countById(id);
         if (count == null || count == 0) {
             throw new ShippingRateNotFoundException("Could not find shipping rate with ID " + id);
-
         }
         shipRepo.deleteById(id);
     }
 
+    /************************************
+     @Author:  The Sheryians Coding School
+     ““E-Commerce Project in Spring Boot & Thymeleaf Playlist”[online]
+     Available at: https://youtu.be/z-9lNgN2QV4
+     ************************************/
     public float calculateShippingCost(Integer productId, Integer countryId, String state)
             throws ShippingRateNotFoundException {
         ShippingRate shippingRate = shipRepo.findByCountryAndState(countryId, state);
 
         if (shippingRate == null) {
-            throw new ShippingRateNotFoundException("No shipping rate found for the given "
-                    + "destination. You have to enter shipping cost manually.");
+            throw new ShippingRateNotFoundException("No shipping rate found for the given destination. You have to enter shipping cost manually.");
         }
-
         Product product = productRepo.findById(productId).get();
-
         float dimWeight = (product.getLength() * product.getWidth() * product.getHeight()) / DIM_DIVISOR;
         float finalWeight = product.getWeight() > dimWeight ? product.getWeight() : dimWeight;
 

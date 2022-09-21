@@ -13,4 +13,5 @@ public class UserNotFoundException extends Exception {
         super(message);
     }
 
+    /*self-finish*/
 }

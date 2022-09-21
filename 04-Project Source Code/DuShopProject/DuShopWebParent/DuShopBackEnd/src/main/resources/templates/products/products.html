@@ -10,7 +10,7 @@
     <div>
         <h2>Manage Products</h2>
 
-        <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+        <th:block sec:authorize="hasAnyAuthority('Admin')">
         <a th:href="@{/products/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
         <a th:href="@{/products/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
         </th:block>
@@ -85,7 +85,7 @@
                 </td>
                 <td class="hideable-column">[[${product.brand.name}]]</td>
                 <td class="hideable-column">[[${product.category.name}]]</td>
-                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                <th:block sec:authorize="hasAnyAuthority('Admin')">
                 <td>
                     <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})" />
                 </td>
@@ -95,11 +95,11 @@
                        th:href="@{'/products/detail/' + ${product.id}}"
                        title="View details of this product"
                     ></a>
-                    <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">&nbsp;
+                    <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">&nbsp;
                     &nbsp;
                     <div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})" /></th:block>
 
-                    <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <th:block sec:authorize="hasAnyAuthority('Admin')">
                         &nbsp;
                         <div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" />
                     </th:block>
@@ -123,12 +123,12 @@
                        th:href="@{'/products/detail/' + ${product.id}}"
                     ></a>
 
-                    <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
+                    <th:block sec:authorize="hasAnyAuthority('Admin',  'Salesperson')">
                         &nbsp;
                         <div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})" />
                     </th:block>
 
-                    <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <th:block sec:authorize="hasAnyAuthority('Admin')">
                         &nbsp;
                         <div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" />
                     </th:block>

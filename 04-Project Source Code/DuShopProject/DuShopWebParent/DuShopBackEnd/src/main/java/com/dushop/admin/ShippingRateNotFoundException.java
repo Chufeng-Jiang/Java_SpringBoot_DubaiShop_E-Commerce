@@ -10,6 +10,7 @@ package com.dushop.admin;
 
 public class ShippingRateNotFoundException extends Exception {
 
+    /*self-code*/
     public ShippingRateNotFoundException(String message) {
         super(message);
     }

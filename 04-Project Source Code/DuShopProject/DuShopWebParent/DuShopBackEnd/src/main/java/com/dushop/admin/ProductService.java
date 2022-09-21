@@ -9,8 +9,8 @@ import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.dushop.common.exception.ProductNotFoundException;
-import com.dushop.common.entity.product.Product;
+import com.dushop.common.entity.ProductNotFoundException;
+import com.dushop.common.entity.Product;
 
 /*
  *@BelongsProject: DuShopProject
@@ -33,6 +33,7 @@ public class ProductService {
         return (List<Product>) repo.findAll();
     }
 
+    /*self-code, but adapted from user module*/
     public void listByPage(int pageNum, PagingAndSortingHelper helper, Integer categoryId) {
         Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
         String keyword = helper.getKeyword();
@@ -58,6 +59,7 @@ public class ProductService {
 
     }
 
+    /*self-code, but adapted from user module*/
     public void searchProducts(int pageNum, PagingAndSortingHelper helper) {
         Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
         String keyword = helper.getKeyword();
@@ -65,6 +67,7 @@ public class ProductService {
         helper.updateModelAttributes(pageNum, page);
     }
 
+    /*self-code, but adapted from user module*/
     public Product save(Product product) {
         if (product.getId() == null) {
             product.setCreatedTime(new Date());
@@ -76,21 +79,21 @@ public class ProductService {
         } else {
             product.setAlias(product.getAlias().replaceAll(" ", "-"));
         }
-
         product.setUpdatedTime(new Date());
-
         return repo.save(product);
     }
 
-    public void saveProductPrice(Product productInForm) {
-        Product productInDB = repo.findById(productInForm.getId()).get();
-        productInDB.setCost(productInForm.getCost());
-        productInDB.setPrice(productInForm.getPrice());
-        productInDB.setDiscountPercent(productInForm.getDiscountPercent());
+    /*self-code*/
+    public void saveProductPrice(Product formProduct) {
+        Product dbProduct = repo.findById(formProduct.getId()).get();
+        dbProduct.setCost(formProduct.getCost());
+        dbProduct.setPrice(formProduct.getPrice());
+        dbProduct.setDiscountPercent(formProduct.getDiscountPercent());
 
-        repo.save(productInDB);
+        repo.save(dbProduct);
     }
 
+    /*self-code, but adapted from user module*/
     public String checkUnique(Integer id, String name) {
         boolean isCreatingNew = (id == null || id == 0);
         Product productByName = repo.findByName(name);
@@ -102,29 +105,29 @@ public class ProductService {
                 return "Duplicate";
             }
         }
-
         return "OK";
     }
 
+    /*self-code, but adapted from user module*/
     public void updateProductEnabledStatus(Integer id, boolean enabled) {
         repo.updateEnabledStatus(id, enabled);
     }
 
+    /*self-code, but adapted from user module*/
     public void delete(Integer id) throws ProductNotFoundException {
         Long countById = repo.countById(id);
-
         if (countById == null || countById == 0) {
-            throw new ProductNotFoundException("Could not find any product with ID " + id);
+            throw new ProductNotFoundException("Could not find ID " + id);
         }
-
         repo.deleteById(id);
     }
 
+    /*self-code, but adapted from user module*/
     public Product get(Integer id) throws ProductNotFoundException {
         try {
             return repo.findById(id).get();
         } catch (NoSuchElementException ex) {
-            throw new ProductNotFoundException("Could not find any product with ID " + id);
+            throw new ProductNotFoundException("Could not find ID " + id);
         }
     }
 }

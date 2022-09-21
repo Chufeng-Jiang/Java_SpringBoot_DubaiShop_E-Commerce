@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="content" th:remove="tag">
+<div th:fragment="content" >
     <form th:action="@{/settings/save_mail_templates}" method="post">
         <div>
             <ul class="nav nav-tabs" id="mailTemplatesTab" role="tablist">

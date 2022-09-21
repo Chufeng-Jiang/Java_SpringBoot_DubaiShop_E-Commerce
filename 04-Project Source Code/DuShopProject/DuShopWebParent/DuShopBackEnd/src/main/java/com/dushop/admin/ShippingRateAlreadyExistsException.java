@@ -10,6 +10,11 @@ package com.dushop.admin;
 
 public class ShippingRateAlreadyExistsException extends Exception {
 
+    /************************************
+     @Author:  The Sheryians Coding School
+     ““E-Commerce Project in Spring Boot & Thymeleaf Playlist”[online]
+     Available at: https://youtu.be/z-9lNgN2QV4
+     ************************************/
     public ShippingRateAlreadyExistsException(String message) {
         super(message);
     }

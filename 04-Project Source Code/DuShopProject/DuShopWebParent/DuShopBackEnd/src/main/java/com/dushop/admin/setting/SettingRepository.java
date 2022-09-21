@@ -1,9 +1,9 @@
 package com.dushop.admin.setting;
 
-import com.dushop.common.entity.setting.SettingCategory;
+import com.dushop.common.entity.SettingCategory;
 import org.springframework.data.repository.CrudRepository;
 
-import com.dushop.common.entity.setting.Setting;
+import com.dushop.common.entity.Setting;
 
 import java.util.List;
 /*

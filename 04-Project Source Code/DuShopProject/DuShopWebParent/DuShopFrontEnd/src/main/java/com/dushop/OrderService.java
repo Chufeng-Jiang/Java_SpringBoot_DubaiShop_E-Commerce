@@ -3,20 +3,19 @@ package com.dushop;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import com.dushop.common.entity.order.OrderTrack;
-import com.dushop.common.exception.OrderNotFoundException;
+import com.dushop.common.entity.OrderTrack;
+import com.dushop.common.entity.OrderNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dushop.checkout.CheckoutInfo;
 import com.dushop.common.entity.Address;
 import com.dushop.common.entity.CartItem;
 import com.dushop.common.entity.Customer;
-import com.dushop.common.entity.order.Order;
-import com.dushop.common.entity.order.OrderDetail;
-import com.dushop.common.entity.order.OrderStatus;
-import com.dushop.common.entity.order.PaymentMethod;
-import com.dushop.common.entity.product.Product;
+import com.dushop.common.entity.Order;
+import com.dushop.common.entity.OrderDetail;
+import com.dushop.common.entity.OrderStatus;
+import com.dushop.common.entity.PaymentMethod;
+import com.dushop.common.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,8 +37,12 @@ public class OrderService {
     public static final int ORDERS_PER_PAGE = 5;
     @Autowired private OrderRepository repo;
 
-    public Order createOrder(Customer customer, Address address, List<CartItem> cartItems,
-                             PaymentMethod paymentMethod, CheckoutInfo checkoutInfo) {
+    /***************************************************************************************
+     *    Title: mediCare
+     *    Author: Bhardwaj-Abh
+     *    Availability: https://github.com/Bhardwaj-Abh/medi/blob/32f56a6712eec42f688d93b1de83de0efb96f702/MediCareCommon/src/main/java/com/medicare
+     ***************************************************************************************/
+    public Order createOrder(Customer customer, Address address, List<CartItem> cartItems, PaymentMethod paymentMethod, CheckoutInfo checkoutInfo) {
         Order newOrder = new Order();
         newOrder.setOrderTime(new Date());
         if (paymentMethod.equals(PaymentMethod.PAYPAL)) {
@@ -91,6 +94,11 @@ public class OrderService {
         return repo.save(newOrder);
     }
 
+    /***************************************************************************************
+     *    Title: mediCare
+     *    Author: Bhardwaj-Abh
+     *    Availability: https://github.com/Bhardwaj-Abh/medi/blob/32f56a6712eec42f688d93b1de83de0efb96f702/MediCareCommon/src/main/java/com/medicare
+     ***************************************************************************************/
     public Page<Order> listForCustomerByPage(Customer customer, int pageNum,
                                              String sortField, String sortDir, String keyword) {
         Sort sort = Sort.by(sortField);
@@ -106,10 +114,18 @@ public class OrderService {
 
     }
 
+
+    /*self-code*/
+
     public Order getOrder(Integer id, Customer customer) {
         return repo.findByIdAndCustomer(id, customer);
     }
 
+    /***************************************************************************************
+     *    Title: mediCare
+     *    Author: Bhardwaj-Abh
+     *    Availability: https://github.com/Bhardwaj-Abh/medi/blob/32f56a6712eec42f688d93b1de83de0efb96f702/MediCareCommon/src/main/java/com/medicare
+     ***************************************************************************************/
     public void setOrderReturnRequested(OrderReturnRequest request, Customer customer)
             throws OrderNotFoundException {
         Order order = repo.findByIdAndCustomer(request.getOrderId(), customer);
@@ -117,7 +133,6 @@ public class OrderService {
             throw new OrderNotFoundException("Order ID " + request.getOrderId() + " not found");
         }
 
-        if (order.isReturnRequested()) return;
 
         OrderTrack track = new OrderTrack();
         track.setOrder(order);

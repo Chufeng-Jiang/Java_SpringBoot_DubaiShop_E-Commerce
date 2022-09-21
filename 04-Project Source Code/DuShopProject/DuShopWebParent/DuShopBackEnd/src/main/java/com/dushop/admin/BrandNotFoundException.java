@@ -9,6 +9,7 @@ package com.dushop.admin;
  */
 
 public class BrandNotFoundException extends Exception {
+    /*self-finish*/
     public BrandNotFoundException(String message) {
         super(message);
     }

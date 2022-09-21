@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.dushop.common.entity.setting.Setting;
-import com.dushop.common.entity.setting.SettingCategory;
+import com.dushop.common.entity.Setting;
+import com.dushop.common.entity.SettingCategory;
 
 /*
  *@BelongsProject: DuShopProject

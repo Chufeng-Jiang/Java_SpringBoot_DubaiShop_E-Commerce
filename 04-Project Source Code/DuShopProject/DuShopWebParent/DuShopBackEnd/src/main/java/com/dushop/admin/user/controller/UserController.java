@@ -41,6 +41,7 @@ public class UserController {
 
     private String defaultRedirectURL = "redirect:/users/page/1?sortField=firstName&sortDir=asc";
 
+    /*self-finish*/
     @GetMapping("/users")
     public String listFirstPage() {
         return defaultRedirectURL;
@@ -57,28 +58,36 @@ public class UserController {
      * @param: sortDir
      * @return: java.lang.String
      */
+
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     @GetMapping("/users/page/{pageNum}")
-    public String listByPage(
-            @PagingAndSortingParam(listName = "listUsers", moduleURL = "/users") PagingAndSortingHelper helper,
+    public String listByPage( @PagingAndSortingParam(listName = "listUsers", moduleURL = "/users") PagingAndSortingHelper helper,
             @PathVariable(name = "pageNum") int pageNum) {
         service.listByPage(pageNum, helper);
         return "users/users";
     }
 
+    /*self-finish*/
     @GetMapping("/users/new")
     public String newUser(Model model) {
         List<Role> listRoles = service.listRoles();
-
         User user = new User();
         user.setEnabled(true);
-
         model.addAttribute("user", user);
         model.addAttribute("listRoles", listRoles);
         model.addAttribute("pageTitle", "Create New User");
-
         return "users/user_form";
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     @PostMapping("/users/save")
     public String saveUser(User user, RedirectAttributes redirectAttributes, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
@@ -86,21 +95,16 @@ public class UserController {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             user.setPhotos(fileName);
             User savedUser = service.save(user);
-
             String uploadDir = "user-photos/" + savedUser.getId();
-
             FileUploadUtil.cleanDir(uploadDir);
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-
         } else {
             if (user.getPhotos().isEmpty()) user.setPhotos(null);
             service.save(user);
         }
 
-        redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
-
+        redirectAttributes.addFlashAttribute("message", "Saved successfully.");
         //Return to page 1 after edit information
-        //return "redirect:/users";
         return getRedirectURLtoAffectedUser(user);
     }
 
@@ -111,31 +115,40 @@ public class UserController {
      * @param: user
      * @return: java.lang.String
      */
+
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private String getRedirectURLtoAffectedUser(User user) {
-        String firstPartOfEmail = user.getEmail().split("@")[0];
-        return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
+        String prefixOfEmail = user.getEmail().split("@")[0];
+        return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + prefixOfEmail;
     }
 
 
 
-
+    /*self-finish*/
     @GetMapping("/users/edit/{id}")
     public String editUser(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
         try {
             User user = service.get(id);
             List<Role> listRoles = service.listRoles();
-
             model.addAttribute("user", user);
             model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
             model.addAttribute("listRoles", listRoles);
             return "users/user_form";
-
         } catch (UserNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
             return defaultRedirectURL;
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     @GetMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
         try {
@@ -147,6 +160,7 @@ public class UserController {
         return defaultRedirectURL;
     }
 
+    /*self-code*/
     @GetMapping("/users/{id}/enabled/{status}")
     public String updateUserEnabledStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
         service.updateUserEnabledStatus(id, enabled);
@@ -157,6 +171,10 @@ public class UserController {
         return defaultRedirectURL;
     }
 
+    /*
+ https://codehunter.cc/a/spring/how-to-return-csv-data-in-browser-from-spring-controller
+ https://grabthiscode.com/whatever/download-csv-file-spring-boot
+ */
     @GetMapping("/users/export/csv")
     public void exportToCSV(HttpServletResponse response) throws IOException {
         List<User> listUsers = service.listAll();
@@ -164,18 +182,17 @@ public class UserController {
         exporter.export(listUsers, response);
     }
 
+    /*Adopted from above code */
     @GetMapping("/users/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         List<User> listUsers = service.listAll();
-
         UserExcelExporter exporter = new UserExcelExporter();
         exporter.export(listUsers, response);
     }
-
+    /*Adopted from above code */
     @GetMapping("/users/export/pdf")
     public void exportToPDF(HttpServletResponse response) throws IOException {
         List<User> listUsers = service.listAll();
-
         UserPdfExporter exporter = new UserPdfExporter();
         exporter.export(listUsers, response);
     }

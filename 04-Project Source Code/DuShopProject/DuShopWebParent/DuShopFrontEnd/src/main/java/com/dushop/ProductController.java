@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.dushop.common.entity.Category;
-import com.dushop.common.entity.product.Product;
-import com.dushop.common.exception.CategoryNotFoundException;
-import com.dushop.common.exception.ProductNotFoundException;
+import com.dushop.common.entity.Product;
+import com.dushop.common.entity.CategoryNotFoundException;
+import com.dushop.common.entity.ProductNotFoundException;
 
 /*
  *@BelongsProject: DuShopProject
@@ -27,12 +27,14 @@ import com.dushop.common.exception.ProductNotFoundException;
 public class ProductController {
     @Autowired private ProductService productService;
     @Autowired private CategoryService categoryService;
+
+    /*self-code*/
     @GetMapping("/c/{category_alias}")
-    public String viewCategoryFirstPage(@PathVariable("category_alias") String alias,
-                                        Model model) {
+    public String viewCategoryFirstPage(@PathVariable("category_alias") String alias, Model model) {
         return viewCategoryByPage(alias, 1, model);
     }
 
+    /*self-code, but adapted from product module*/
     @GetMapping("/c/{category_alias}/page/{pageNum}")
     public String viewCategoryByPage(@PathVariable("category_alias") String alias,
                                      @PathVariable("pageNum") int pageNum,
@@ -40,17 +42,13 @@ public class ProductController {
         try {
             Category category = categoryService.getCategory(alias);
             List<Category> listCategoryParents = categoryService.getCategoryParents(category);
-
             Page<Product> pageProducts = productService.listByCategory(pageNum, category.getId());
             List<Product> listProducts = pageProducts.getContent();
-
             long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
             long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
             if (endCount > pageProducts.getTotalElements()) {
                 endCount = pageProducts.getTotalElements();
             }
-
-
             model.addAttribute("currentPage", pageNum);
             model.addAttribute("totalPages", pageProducts.getTotalPages());
             model.addAttribute("startCount", startCount);
@@ -67,6 +65,7 @@ public class ProductController {
         }
     }
 
+    /*self-code*/
     @GetMapping("/p/{product_alias}")
     public String viewProductDetail(@PathVariable("product_alias") String alias, Model model) {
 
@@ -84,15 +83,16 @@ public class ProductController {
         }
     }
 
+    /*self-code*/
     @GetMapping("/search")
     public String searchFirstPage(String keyword, Model model) {
         return searchByPage(keyword, 1, model);
     }
 
+
+    /*self-code, but adapted from user module*/
     @GetMapping("/search/page/{pageNum}")
-    public String searchByPage(String keyword,
-                               @PathVariable("pageNum") int pageNum,
-                               Model model) {
+    public String searchByPage(String keyword, @PathVariable("pageNum") int pageNum, Model model) {
         Page<Product> pageProducts = productService.search(keyword, pageNum);
         List<Product> listResult = pageProducts.getContent();
 
@@ -108,7 +108,6 @@ public class ProductController {
         model.addAttribute("endCount", endCount);
         model.addAttribute("totalItems", pageProducts.getTotalElements());
         model.addAttribute("pageTitle", keyword + " - Search Result");
-
         model.addAttribute("keyword", keyword);
         model.addAttribute("listResult", listResult);
 

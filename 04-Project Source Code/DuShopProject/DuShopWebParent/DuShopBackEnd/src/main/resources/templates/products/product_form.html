@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
     <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
@@ -45,8 +44,7 @@
                 </div>
                 <!--阅读权限在Product Controller-public String editProduct里单独设置了th:if="${isReadOnlyForSalesperson}-->
                 <div class="tab-pane" id="description" role="tabpanel">
-                    <!--<th:block th:if="${!#authorization.expression('hasAuthority(''Admin'')') && !#authorization.expression('hasAuthority(''Editor'')')}">
-                        <th:block th:if="${#authorization.expression('hasAuthority(''Salesperson'')')}">-->
+
                       <th:block th:if="${isReadOnlyForSalesperson}">
                             <div th:replace="products/product_description_read_only :: content"></div>
                     </th:block>
@@ -57,26 +55,23 @@
                 </div>
 
                 <div class="tab-pane" id="images" role="tabpanel">
-                    <!--<th:block th:if="${!#authorization.expression('hasAuthority(''Admin'')') && !#authorization.expression('hasAuthority(''Editor'')')}">
-                        <th:block th:if="${#authorization.expression('hasAuthority(''Salesperson'')')}">-->
+
                     <th:block th:if="${isReadOnlyForSalesperson}">
                             <div th:replace="products/product_images_read_only :: content"></div>
                     </th:block>
 
-                    <!--<th:block th:if="${#authorization.expression('hasAuthority(''Admin'')') || #authorization.expression('hasAuthority(''Editor'')')}">-->
+
                     <th:block th:unless="${isReadOnlyForSalesperson}">
                     <div th:replace="products/product_images :: content"></div>
                     </th:block>
                 </div>
 
                 <div class="tab-pane p-3" id="details" role="tabpanel">
-                    <!--<th:block th:if="${!#authorization.expression('hasAuthority(''Admin'')') && !#authorization.expression('hasAuthority(''Editor'')')}">
-                        <th:block th:if="${#authorization.expression('hasAuthority(''Salesperson'')')}">-->
+
                     <th:block th:if="${isReadOnlyForSalesperson}">
                             <div th:replace="products/product_details_read_only :: content"></div>
                     </th:block>
 
-                    <!--<th:block th:if="${#authorization.expression('hasAuthority(''Admin'')') || #authorization.expression('hasAuthority(''Editor'')')}">-->
                     <th:block th:unless="${isReadOnlyForSalesperson}">
                         <div th:replace="products/product_details :: content"></div>
                         <div>
@@ -87,13 +82,11 @@
                 </div>
 
                 <div class="tab-pane p-3" id="shipping" role="tabpanel">
-      <!--              <th:block th:if="${!#authorization.expression('hasAuthority(''Admin'')') && !#authorization.expression('hasAuthority(''Editor'')')}">
-                        <th:block th:if="${#authorization.expression('hasAuthority(''Salesperson'')')}">-->
+
                     <th:block th:if="${isReadOnlyForSalesperson}">
                             <div th:replace="products/product_shipping_read_only :: content"></div>
                     </th:block>
 
-                    <!--<th:block th:if="${#authorization.expression('hasAuthority(''Admin'')') || #authorization.expression('hasAuthority(''Editor'')')}">-->
                     <th:block th:unless="${isReadOnlyForSalesperson}">
                         <div th:replace="products/product_shipping :: content"></div>
                     </th:block>

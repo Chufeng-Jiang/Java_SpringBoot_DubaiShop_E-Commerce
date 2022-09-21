@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.dushop.common.exception.CategoryNotFoundException;
+import com.dushop.common.entity.CategoryNotFoundException;
 import com.dushop.common.entity.Category;
 
 /*
@@ -23,6 +23,11 @@ public class CategoryService {
 
     @Autowired private CategoryRepository repo;
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public List<Category> listNoChildrenCategories() {
         List<Category> listNoChildrenCategories = new ArrayList<>();
 
@@ -38,15 +43,20 @@ public class CategoryService {
         return listNoChildrenCategories;
     }
 
+    /*self-code*/
     public Category getCategory(String alias) throws CategoryNotFoundException {
         Category category = repo.findByAliasEnabled(alias);
         if (category == null) {
-            throw new CategoryNotFoundException("Could not find any categories with alias " + alias);
+            throw new CategoryNotFoundException("Could not find alias " + alias);
         }
-
         return category;
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public List<Category> getCategoryParents(Category child) {
         List<Category> listParents = new ArrayList<>();
 

@@ -11,7 +11,7 @@ import com.dushop.common.entity.AuthenticationType;
 import com.dushop.common.entity.Country;
 import com.dushop.common.entity.Customer;
 import com.dushop.setting.CountryRepository;
-import com.dushop.common.exception.CustomerNotFoundException;
+import com.dushop.common.entity.CustomerNotFoundException;
 
 /*
  *@BelongsProject: DuShopProject
@@ -31,15 +31,22 @@ public class CustomerService {
     //@Autowired PasswordEncoder passwordEncoder;
 
     @Autowired private PasswordEncoder passwordEncoder;
+
+    /*self-code*/
     public List<Country> listAllCountries() {
         return countryRepo.findAllByOrderByNameAsc();
     }
-
+    /*self-code*/
     public boolean isEmailUnique(String email) {
         Customer customer = customerRepo.findByEmail(email);
         return customer == null;
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public void registerCustomer(Customer customer) {
         encodePassword(customer);
         customer.setEnabled(false);
@@ -53,15 +60,26 @@ public class CustomerService {
 
     }
 
+    /*self-code*/
     public Customer getCustomerByEmail(String email) {
         return customerRepo.findByEmail(email);
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private void encodePassword(Customer customer) {
         String encodedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encodedPassword);
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public boolean verify(String verificationCode) {
         Customer customer = customerRepo.findByVerificationCode(verificationCode);
 
@@ -73,12 +91,22 @@ public class CustomerService {
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public void updateAuthenticationType(Customer customer, AuthenticationType type) {
         if (!customer.getAuthenticationType().equals(type)) {
             customerRepo.updateAuthenticationType(customer.getId(), type);
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public void addNewCustomerUponOAuthLogin(String name, String email, String countryCode,
                                              AuthenticationType authenticationType) {
         Customer customer = new Customer();
@@ -99,6 +127,11 @@ public class CustomerService {
         customerRepo.save(customer);
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     private void setName(String name, Customer customer) {
         String[] nameArray = name.split(" ");
         if (nameArray.length < 2) {
@@ -113,6 +146,11 @@ public class CustomerService {
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public void update(Customer customerInForm) {
         Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
 
@@ -137,6 +175,11 @@ public class CustomerService {
     }
 
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public String updateResetPasswordToken(String email) throws CustomerNotFoundException {
         Customer customer = customerRepo.findByEmail(email);
         if (customer != null) {
@@ -150,10 +193,19 @@ public class CustomerService {
         }
     }
 
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public Customer getByResetPasswordToken(String token) {
         return customerRepo.findByResetPasswordToken(token);
     }
-
+    /*****************************
+     @Author: Code Java.
+     “Spring Boot Tutorials Playlist” [online]
+     Available at: https://youtu.be/zDc63OHY_v8
+     ****************************/
     public void updatePassword(String token, String newPassword) throws CustomerNotFoundException {
         Customer customer = customerRepo.findByResetPasswordToken(token);
         if (customer == null) {

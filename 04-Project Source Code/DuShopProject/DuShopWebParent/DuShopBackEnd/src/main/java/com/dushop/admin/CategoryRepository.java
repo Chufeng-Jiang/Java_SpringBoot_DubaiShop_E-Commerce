@@ -22,24 +22,26 @@ import java.util.List;
  */
 
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
+
+    /*self-code*/
     @Query("SELECT c FROM Category c WHERE c.parent.id is NULL")
     public List<Category> findRootCategories(Sort sort);
-
+    /*self-code*/
     @Query("SELECT c FROM Category c WHERE c.parent.id is NULL")
     public Page<Category> findRootCategories(Pageable pageable);
-
+    /*self-code*/
     @Query("SELECT c FROM Category c WHERE c.name LIKE %?1%")
     public Page<Category> search(String keyword, Pageable pageable);
 
-
+    /*self-code*/
     public Category findByName(String name);
-
+    /*self-code*/
     public Category findByAlias(String alias);
-
+    /*self-code*/
     @Query("UPDATE Category c SET c.enabled = ?2 WHERE c.id = ?1")
     @Modifying
     public void updateEnabledStatus(Integer id, boolean enabled);
-
+    /*self-code*/
     public Long countById(Integer id);
 
 }

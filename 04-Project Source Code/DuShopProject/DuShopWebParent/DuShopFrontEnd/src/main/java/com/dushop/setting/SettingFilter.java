@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.dushop.common.entity.setting.Setting;
+import com.dushop.common.entity.Setting;
 
 /*
  *@BelongsProject: DuShopProject

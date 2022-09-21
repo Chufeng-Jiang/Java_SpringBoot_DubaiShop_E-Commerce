@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dushop.common.entity.Customer;
-import com.dushop.common.exception.CustomerNotFoundException;
-import com.dushop.common.exception.OrderNotFoundException;
+import com.dushop.common.entity.CustomerNotFoundException;
+import com.dushop.common.entity.OrderNotFoundException;
 
 /*
  *@BelongsProject: DuShopProject
@@ -29,32 +29,14 @@ public class OrderRestController {
     @Autowired private CustomerService customerService;
 
     @PostMapping("/orders/return")
-    public ResponseEntity<?> handleOrderReturnRequest(@RequestBody OrderReturnRequest returnRequest,
-                                                      HttpServletRequest servletRequest) {
-
-        System.out.println("Order ID: " + returnRequest.getOrderId());
-        System.out.println("Reason: " + returnRequest.getReason());
-        System.out.println("Note: " + returnRequest.getNote());
-
+    public ResponseEntity<?> handleOrderReturnRequest(@RequestBody OrderReturnRequest returnRequest, HttpServletRequest servletRequest) {
         Customer customer = null;
-
-        try {
-            customer = getAuthenticatedCustomer(servletRequest);
-        } catch (CustomerNotFoundException ex) {
-            return new ResponseEntity<>("Authentication required", HttpStatus.BAD_REQUEST);
-        }
-
-        try {
-            orderService.setOrderReturnRequested(returnRequest, customer);
-        } catch (OrderNotFoundException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(new OrderReturnResponse(returnRequest.getOrderId()), HttpStatus.OK);
+        // todo
+       return null;
     }
 
-    private Customer getAuthenticatedCustomer(HttpServletRequest request)
-            throws CustomerNotFoundException {
+    /*self-code, but adapted from customer module*/
+    private Customer getAuthenticatedCustomer(HttpServletRequest request) throws CustomerNotFoundException {
         String email = Utility.getEmailOfAuthenticatedCustomer(request);
         if (email == null) {
             throw new CustomerNotFoundException("No authenticated customer");
