@@ -1,0 +1,12 @@
+Q:Could not autowire. No beans of 'ProductRepository' type found.
+
+https://stackoverflow.com/questions/26889970/intellij-incorrectly-saying-no-beans-of-type-found-for-autowired-repository
+
+I always solve this problem doing de following.. Settings>Inspections>Spring Core>Code than you shift from error to warning the severity option
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE FULLTEXT INDEX full_text_index
+ON products (name, short_description,full_description);
+
+////////////////////////////////////////////////////////////////////

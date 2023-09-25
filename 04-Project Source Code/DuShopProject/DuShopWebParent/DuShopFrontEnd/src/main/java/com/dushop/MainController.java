@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 
+import com.dushop.category.CategoryService;
 import com.dushop.common.entity.Category;
 
 @Controller
@@ -17,7 +18,6 @@ public class MainController {
 
 	@Autowired private CategoryService categoryService;
 
-	/*Adapted from Admin Application*/
 	@GetMapping("")
 	public String viewHomePage(Model model) {
 		List<Category> listCategories = categoryService.listNoChildrenCategories();
@@ -25,13 +25,13 @@ public class MainController {
 		return "index";
 	}
 
-	/*Adapted from Admin Application*/
 	@GetMapping("/login")
 	public String viewLoginPage() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 			return "login";
 		}
+
 		return "redirect:/";
 	}
 }

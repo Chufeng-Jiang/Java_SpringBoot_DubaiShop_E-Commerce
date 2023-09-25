@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.dushop.common.entity.Setting;
+import com.dushop.common.entity.setting.Setting;
 
 /*
  *@BelongsProject: DuShopProject
@@ -26,8 +26,10 @@ import com.dushop.common.entity.Setting;
 
 @Component
 public class SettingFilter implements Filter {
+
     @Autowired
     private SettingService service;
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -44,9 +46,9 @@ public class SettingFilter implements Filter {
         List<Setting> generalSettings = service.getGeneralSettings();
 
         generalSettings.forEach(setting -> {
-            //System.out.println(setting);
+            System.out.println(setting);
             request.setAttribute(setting.getKey(), setting.getValue());
-            //System.out.println(setting.getKey() + " == > " + setting.getValue());
+            System.out.println(setting.getKey() + " == > " + setting.getValue());
         });
 
         chain.doFilter(request, response);

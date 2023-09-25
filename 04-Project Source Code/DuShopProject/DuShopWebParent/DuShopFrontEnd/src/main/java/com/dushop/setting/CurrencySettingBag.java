@@ -1,8 +1,8 @@
 package com.dushop.setting;
 import java.util.List;
 
-import com.dushop.common.entity.Setting;
-import com.dushop.common.entity.SettingBag;
+import com.dushop.common.entity.setting.Setting;
+import com.dushop.common.entity.setting.SettingBag;
 /*
  *@BelongsProject: DuShopProject
  *@BelongsPackage: com.dushop.setting

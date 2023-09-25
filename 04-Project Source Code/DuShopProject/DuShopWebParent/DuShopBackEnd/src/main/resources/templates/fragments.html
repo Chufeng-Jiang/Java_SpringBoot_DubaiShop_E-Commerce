@@ -30,9 +30,6 @@
 </div>
 
 <!--Common methd, making the Manage User - table frame's codes simplicity-->
-<!--    @Author: Code Java.-->
-<!--    “Spring Boot Tutorials Playlist” [online]-->
-<!--    Available at: https://youtu.be/zDc63OHY_v8-->
 <th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
     <a class="text-white"
        th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
@@ -52,8 +49,20 @@
          style="width: 100px"/>
 </div>
 
+<!--Delete template
+Syntax: th:remove = "delete range value"
 
-<div th:fragment="status(enabled, entityName, entityURL)" >
+Optional range value:
+All: delete the containing label and all its children
+body: do not delete the containing tag, but delete all children
+Tag: delete the containing tag, but do not delete its children
+All but first: delete all children except the first one
+None: do nothing. This value is useful for dynamic calculations. null will also be treated as none
+
+https://programmer.ink/think/thymeleaf-series-6-template-layout.html
+-->
+
+<div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
     <a th:if="${enabled == true}" class="fas fa-check-circle fa-2x icon-green"
        th:href="@{${entityURL} + '/enabled/false'}"
        th:title="'Disable this ' + ${entityName}"
@@ -65,12 +74,12 @@
     ></a>
 </div>
 
-<div th:fragment="edit(entityName, editURL)">
+<div th:fragment="edit(entityName, editURL)" th:remove="tag">
     <a class="fas fa-edit fa-2x icon-green" th:href="@{${editURL}}"
        th:title="'Edit this ' + ${entityName}"></a>
 </div>
 
-<div th:fragment="delete(entityName, entityId, deleteURL, visible)">
+<div th:fragment="delete(entityName, entityId, deleteURL, visible)" th:remove="tag">
     <th:block th:if="${visible}">
         <a class="fas fa-trash fa-2x icon-dark link-delete"
            th:href="@{${deleteURL}}"
@@ -80,10 +89,7 @@
 </div>
 
 <!--Showing users 1 to 4 of 14-->
-<!--    @Author: Code Java.-->
-<!--    “Spring Boot Tutorials Playlist” [online]-->
-<!--    Available at: https://youtu.be/zDc63OHY_v8-->
-<div th:fragment="pagination(entityName)">
+<div th:fragment="pagination(entityName)" th:remove="tag">
     <div class="text-center m-1" th:if="${totalItems > 0}">
         <span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
     </div>
@@ -120,9 +126,6 @@
     </div>
 </div>
 
-<!--    @Author: Code Java.-->
-<!--    “Spring Boot Tutorials Playlist” [online]-->
-<!--    Available at: https://youtu.be/zDc63OHY_v8-->
 <div th:fragment="search_form_and_message()">
     <form th:action="@{${moduleURL} + '/page/1'}" class="form-inline m-3">
         <input type="hidden" name="sortField" th:value="${sortField}" />
@@ -145,27 +148,17 @@
     </div>
 </div>
 
-<!--                @Author: Jay Gajera-->
-<!--                “Spring E commerce project | With Code| Run step by step execution” [online]-->
-<!--                Available at: https://youtu.be/c6WWdINWSlI-->
-<div th:fragment="format_currency(amount)" th:remove="tag">
-    <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
-</div>
+    <div th:fragment="format_currency(amount)" th:remove="tag">
+        <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+    </div>
 
-<!--                @Author: Jay Gajera-->
-<!--                “Spring E commerce project | With Code| Run step by step execution” [online]-->
-<!--                Available at: https://youtu.be/c6WWdINWSlI-->
-<div th:fragment="format_time(dateTime)" th:remove="tag">
-    <span th:text="${#dates.format(dateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
-</div>
+    <div th:fragment="format_time(dateTime)" th:remove="tag">
+        <span th:text="${#dates.format(dateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    </div>
 
-<!--                @Author: Jay Gajera-->
-<!--                “Spring E commerce project | With Code| Run step by step execution” [online]-->
-<!--                Available at: https://youtu.be/c6WWdINWSlI-->
-<div th:fragment="currency_input(amount)" th:remove="tag">
-    <input type="text" readonly class="form-control" th:value="${(CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : '') + #numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE) + (CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : '')}">
-</div>
-<script th:src="@{/js/common.js}"></script>
+    <div th:fragment="currency_input(amount)" th:remove="tag">
+        <input type="text" readonly class="form-control" th:value="${(CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : '') + #numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE) + (CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : '')}">
+    </div>
 
 </body>
 </html>

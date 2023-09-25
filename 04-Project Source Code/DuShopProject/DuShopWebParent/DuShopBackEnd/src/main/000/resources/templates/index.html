@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<!--Using thymeleaf resuable method in fragments.html-->
+<head th:replace="fragments :: page_head('Home - Dubai Shop Admin', 'none')" />
+
+<body>
+<div class="container-fluid">
+
+        <!--Using thymeleaf resuable method in navigation.html, because these lines of codes too much-->
+        <div th:replace="navigation :: menu"></div>
+
+        <div>
+                <h2>Dubai Shop Control Panel</h2>
+                Welcome
+                <a th:href="@{/account}" sec:authentication="principal.fullname"></a>
+                <span sec:authentication="principal.authorities"></span>
+        </div>
+
+        <div th:replace="fragments :: footer"></div>
+</div>
+
+
+</body>
+</html>

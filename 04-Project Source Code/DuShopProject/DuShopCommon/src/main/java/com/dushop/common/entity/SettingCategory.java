@@ -9,7 +9,5 @@ package com.dushop.common.entity;
  */
 
 public enum SettingCategory {
-
-    /*self-finish*/
-    GENERAL, MAIL_SERVER, CURRENCY, MAIL_TEMPLATES, PAYMENT
+    GENERAL, MAIL_SERVER, MAIL_TEMPLATES, CURRENCY, PAYMENT
 }

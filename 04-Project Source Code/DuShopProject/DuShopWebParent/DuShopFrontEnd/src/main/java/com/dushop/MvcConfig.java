@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-    /*Adapted from Admin Application*/
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("../category-images", registry);
@@ -28,7 +28,7 @@ public class MvcConfig implements WebMvcConfigurer {
         exposeDirectory("../site-logo", registry);
 
     }
-    /*Adapted from Admin Application*/
+
     private void exposeDirectory(String pathPattern, ResourceHandlerRegistry registry) {
         Path path = Paths.get(pathPattern);
         String absolutePath = path.toFile().getAbsolutePath();
