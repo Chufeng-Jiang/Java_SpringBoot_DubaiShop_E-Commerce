@@ -1,3 +1,5 @@
+#### This project has not been completed due to the time constraints imposed by the **`University of Birmingham`**. However, the main features have been implemented. Please refrain from using it for commercial purposes.
+
 ## Project Souce Code can be direct to：
  https://github.com/Chufeng-Jiang/SpringBoot_DubaiShop_E-Commerce/tree/main/04-Project%20Source%20Code%20%E3%80%90code%20is%20here%20%2B%2B%2B%E3%80%91/DuShopProject
 
